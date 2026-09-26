@@ -1,50 +1,44 @@
-"""ナレーション（AI音声）＋BGMつきの縦型ランキング動画を作る。
+"""ナレーション（VOICEVOX）＋BGMつきの縦型ランキング動画を作る。
 
 使い方: python3 make_narrated_video.py <spec.json> <out.mp4>
 spec.json は make_ranking_video.py と同じ形に、次を足す:
+  "slot": 整数  rotation.json の何番目の声・曲を使うか（動画ごとに1つずつ進める）
   "say": {"hook": "..", "items": {"3": "..", ...}, "cta": ".."}  読み上げる文（英字はカタカナで書く）
-  "music": {"style": "calm" | "pop", "seed": 整数}  動画ごとに変えると毎回違う曲になる
-音声: HTS Voice "Mei"（名古屋工業大学, CC BY 3.0）。動画の最後の画面に表記を入れる。
+声は VOICEVOX エンジン（localhost:50021）で作る。起動方法:
+  dockerd &  →  docker run -d --rm -p 50021:50021 voicevox/voicevox_engine:cpu-latest
+声のある回は最後の画面に「VOICEVOX:名前」を入れる（利用規約の表記）。
 """
+import io
 import json
 import subprocess
 import sys
 import tempfile
+import urllib.parse
 import urllib.request
-import zipfile
+import wave
 from pathlib import Path
 
 import imageio_ffmpeg
 import numpy as np
-import pyopenjtalk
-from pyopenjtalk.htsengine import HTSEngine
 
 sys.path.insert(0, str(Path(__file__).parent))
 import make_bgm  # noqa: E402
-from make_ranking_video import FPS, MUTED, base, draw_block, font, frame_hook, frame_item, FG  # noqa: E402
+from make_ranking_video import FG, FPS, MUTED, base, draw_block, font, frame_hook, frame_item  # noqa: E402
 
-SR = 48000
-VOICE_ZIP = "https://downloads.sourceforge.net/project/mmdagent/MMDAgent_Example/MMDAgent_Example-1.8/MMDAgent_Example-1.8.zip"
-VOICE_DIR = Path.home() / ".cache" / "mei_voice"
-CREDIT = "音声：HTS Voice Mei（名古屋工業大学 CC BY 3.0）"
-
-
-def voice_path(mood="happy"):
-    path = VOICE_DIR / f"mei_{mood}.htsvoice"
-    if not path.exists():
-        VOICE_DIR.mkdir(parents=True, exist_ok=True)
-        z = VOICE_DIR / "mmd.zip"
-        urllib.request.urlretrieve(VOICE_ZIP, z)
-        with zipfile.ZipFile(z) as zf:
-            for name in zf.namelist():
-                if name.startswith("MMDAgent_Example-1.8/Voice/mei/") and name.endswith(".htsvoice"):
-                    (VOICE_DIR / Path(name).name).write_bytes(zf.read(name))
-        z.unlink()
-    return path
+SR = 24000
+ENGINE = "http://localhost:50021"
+_open = urllib.request.build_opener(urllib.request.ProxyHandler({})).open
 
 
-def speak(engine, text):
-    x = engine.synthesize(pyopenjtalk.extract_fullcontext(text))
+def speak(text, speaker):
+    q = json.loads(_open(urllib.request.Request(
+        f"{ENGINE}/audio_query?text={urllib.parse.quote(text)}&speaker={speaker}", method="POST")).read())
+    q.update(speedScale=1.1, intonationScale=1.15, outputSamplingRate=SR, outputStereo=False)
+    wav = _open(urllib.request.Request(
+        f"{ENGINE}/synthesis?speaker={speaker}", data=json.dumps(q).encode(),
+        headers={"Content-Type": "application/json"})).read()
+    with wave.open(io.BytesIO(wav)) as w:
+        x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float64) / 32768
     return x / np.max(np.abs(x)) * 0.9
 
 
@@ -53,42 +47,46 @@ def resample(x, src, dst):
     return np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x)
 
 
-def frame_cta(spec):
+def frame_cta(spec, credit):
     img, d = base(spec["accent"])
     draw_block(d, [(t, 76, FG) for t in spec["cta"]] + [(spec.get("foot", ""), 40, MUTED)], 700)
-    fnt = font(28)
-    w = d.textlength(CREDIT, font=fnt)
-    d.text(((1080 - w) / 2, 1920 - 90), CREDIT, font=fnt, fill=MUTED)
+    if credit:
+        fnt = font(30)
+        w = d.textlength(credit, font=fnt)
+        d.text(((1080 - w) / 2, 1920 - 90), credit, font=fnt, fill=MUTED)
     return img
 
 
 def main(spec_path, out_path):
     spec = json.loads(Path(spec_path).read_text())
+    slots = json.loads((Path(__file__).parent / "rotation.json").read_text())["slots"]
+    slot = slots[spec["slot"] % len(slots)]
     say = spec["say"]
-    engine = HTSEngine(str(voice_path()).encode())
-    engine.set_speed(1.15)
+    credit = f"VOICEVOX:{slot['voice']}" if slot["voice"] else ""
 
     items = sorted(spec["items"], key=lambda x: -x["rank"])
     slides = [(frame_hook(spec), say["hook"])]
     slides += [(frame_item(spec, it), say["items"][str(it["rank"])]) for it in items]
-    slides.append((frame_cta(spec), say["cta"]))
+    slides.append((frame_cta(spec, credit), say["cta"]))
 
-    gap = 0.35
-    voice, durs = [], []
-    for _, text in slides:
-        v = speak(engine, text)
-        seg = np.concatenate([np.zeros(int(SR * 0.15)), v, np.zeros(int(SR * gap))])
-        voice.append(seg)
-        durs.append(len(seg) / SR)
-    durs[-1] += 1.0
-    voice.append(np.zeros(int(SR * 1.0)))
-    voice = np.concatenate(voice)
+    if slot["speaker"] is None:
+        durs = [3.0] * (len(slides) - 1) + [3.5]
+        voice = np.zeros(int(SR * sum(durs)))
+    else:
+        parts, durs = [], []
+        for _, text in slides:
+            seg = np.concatenate([np.zeros(int(SR * 0.15)), speak(text, slot["speaker"]), np.zeros(int(SR * 0.35))])
+            parts.append(seg)
+            durs.append(len(seg) / SR)
+        durs[-1] += 1.0
+        parts.append(np.zeros(SR))
+        voice = np.concatenate(parts)
     total = len(voice) / SR
 
-    music = spec.get("music", {})
-    bgm = make_bgm.make(total, music.get("style", "calm"), music.get("seed", 0))
+    bgm = make_bgm.make(total, slot["music"], spec["slot"] * 7 + 3)
     bgm = resample(bgm, make_bgm.SR, SR)[: len(voice)]
-    mix = voice + 0.22 * np.pad(bgm, (0, len(voice) - len(bgm)))
+    level = 0.22 if slot["speaker"] is not None else 0.8
+    mix = voice + level * np.pad(bgm, (0, len(voice) - len(bgm)))
     mix = mix / max(1.0, np.max(np.abs(mix)))
 
     ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
@@ -113,7 +111,7 @@ def main(spec_path, out_path):
             out_path,
         ], check=True)
         slides[0][0].save(Path(out_path).with_suffix(".jpg"), quality=90)
-    print(f"{out_path}: {total:.1f}s")
+    print(f"{out_path}: slot {spec['slot']} {slot['voice'] or '声なし'} / {slot['music']} / {total:.1f}s")
 
 
 if __name__ == "__main__":

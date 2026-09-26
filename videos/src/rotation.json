@@ -1,0 +1,16 @@
+{
+  "_note": "動画ごとに slot を1つずつ進める。voice が null の回は声なし（文字＋音楽だけ）。music は calm/pop",
+  "slots": [
+    {"voice": "WhiteCUL", "speaker": 23, "music": "calm"},
+    {"voice": "冥鳴ひまり", "speaker": 14, "music": "pop"},
+    {"voice": "九州そら", "speaker": 16, "music": "calm"},
+    {"voice": "春日部つむぎ", "speaker": 8, "music": "calm"},
+    {"voice": "青山龍星", "speaker": 13, "music": "pop"},
+    {"voice": "WhiteCUL", "speaker": 23, "music": "calm"},
+    {"voice": "冥鳴ひまり", "speaker": 14, "music": "calm"},
+    {"voice": "玄野武宏", "speaker": 11, "music": "pop"},
+    {"voice": "猫使ビィ", "speaker": 59, "music": "calm"},
+    {"voice": "九州そら", "speaker": 16, "music": "calm"},
+    {"voice": null, "speaker": null, "music": "pop"}
+  ]
+}
