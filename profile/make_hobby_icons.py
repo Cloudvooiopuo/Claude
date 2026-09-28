@@ -92,7 +92,41 @@ def make(name, bg, blob_cols, ink, accent):
     img.save(OUT / name, quality=92)
 
 
+DRAW = {
+    "coffee": lambda img, d, x, y, r, ink, acc: coffee(d, x, y, r, ink, ink),
+    "note": lambda img, d, x, y, r, ink, acc: note(d, x, y, r * .9, ink),
+    "lipstick": lambda img, d, x, y, r, ink, acc: lipstick(d, x, y, r, ink, acc),
+    "plane": lambda img, d, x, y, r, ink, acc: plane(img, x, y, r, ink),
+    "palette": lambda img, d, x, y, r, ink, acc: palette(d, x, y, r, "#FFFFFF", [acc, "#2A9D8F", "#E9C46A", "#264653"]),
+    "pan": lambda img, d, x, y, r, ink, acc: pan(d, x - r * .2, y, r * .8, ink, "#F4A261"),
+}
+
+
+def make_hero(name, hero, others, bg="#FBEFE3", ink="#264653", accent="#E63946",
+              cols=("#F4A261cc", "#E76F51aa", "#E9C46Acc", "#2A9D8F99", "#F2CC8Fcc")):
+    """A案の色で、SNSごとに主役の絵を1つ大きく真ん中に置く。"""
+    img = Image.new("RGB", (W, W), bg)
+    d = ImageDraw.Draw(img, "RGBA")
+    blob = [(540, 520, 300)] + [(540 + 330 * math.cos(a), 540 + 330 * math.sin(a), 95) for a in [math.radians(v) for v in (-150, -30, 90)]]
+    for (x, y, r), col in zip(blob, cols):
+        pts = []
+        for i in range(24):
+            t = 2 * math.pi * i / 24
+            rr = r * (1 + .15 * math.sin(3 * t + x) + .08 * math.cos(5 * t + y))
+            pts += p(x + rr * math.cos(t), y + rr * math.sin(t))
+        d.polygon(pts, fill=col)
+    DRAW[hero](img, d, 540, 520, 190, ink, accent)
+    for (x, y, _), o in zip(blob[1:], others):
+        DRAW[o](img, d, x, y, 70, ink, accent)
+    img = img.resize((1080, 1080), Image.LANCZOS)
+    img.save(OUT / name, quality=92)
+
+
 if __name__ == "__main__":
+    make_hero("sns_icon_tiktok.jpg", "note", ["lipstick", "coffee", "plane"])
+    make_hero("sns_icon_instagram.jpg", "lipstick", ["coffee", "note", "palette"])
+    make_hero("sns_icon_threads.jpg", "coffee", ["pan", "note", "plane"])
+    make_hero("sns_icon_youtube.jpg", "plane", ["palette", "coffee", "lipstick"])
     make("hobby_icon_a_warm.jpg", "#FBEFE3", ["#F4A261cc", "#E76F51aa", "#E9C46Acc", "#2A9D8F99", "#F2CC8Fcc"], "#264653", "#E63946")
     make("hobby_icon_b_pastel.jpg", "#F6F1FA", ["#CDB4DBcc", "#FFC8DDcc", "#BDE0FEcc", "#A2D2FFcc", "#FFAFCCcc"], "#3D315B", "#E5383B")
     make("hobby_icon_c_night.jpg", "#1D2D44", ["#3E5C76cc", "#748CABaa", "#F0EBD833", "#E0A45877", "#F4A26155"], "#F0EBD8", "#FF6B6B")
