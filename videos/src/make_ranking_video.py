@@ -70,7 +70,7 @@ def frame_item(spec, item):
     img, d = base(spec["accent"])
     r = item["rank"]
     fnt = font(260)
-    label = f"{r}位"
+    label = item.get("label", f"{r}位")
     w = d.textlength(label, font=fnt)
     d.text(((W - w) / 2, 430), label, font=fnt, fill=spec["accent"])
     draw_block(d, [(item["name"], 70, FG), (item.get("note", ""), 46, MUTED)], 820)
