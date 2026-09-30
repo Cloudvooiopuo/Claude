@@ -1,6 +1,7 @@
 """ナレーション（VOICEVOX）＋BGMつきの縦型ランキング動画を作る。
 
-使い方: python3 make_narrated_video.py <spec.json> <out.mp4>
+使い方: python3 make_narrated_video.py <spec.json> <out.mp4> [--voice-only]
+  --voice-only: BGMを入れず声だけにする（TikTokアプリで流行りの曲を重ねて投稿し直す用）
 spec.json は make_ranking_video.py と同じ形に、次を足す:
   "slot": 整数  rotation.json の何番目の声・曲を使うか（動画ごとに1つずつ進める）
   "say": {"hook": "..", "items": {"3": "..", ...}, "cta": ".."}  読み上げる文（英字はカタカナで書く）
@@ -57,7 +58,7 @@ def frame_cta(spec, credit):
     return img
 
 
-def main(spec_path, out_path):
+def main(spec_path, out_path, voice_only=False):
     spec = json.loads(Path(spec_path).read_text())
     slots = json.loads((Path(__file__).parent / "rotation.json").read_text())["slots"]
     slot = slots[spec["slot"] % len(slots)]
@@ -86,6 +87,8 @@ def main(spec_path, out_path):
     bgm = make_bgm.make(total, slot["music"], spec["slot"] * 7 + 3)
     bgm = resample(bgm, make_bgm.SR, SR)[: len(voice)]
     level = 0.22 if slot["speaker"] is not None else 0.8
+    if voice_only:
+        level = 0.0
     mix = voice + level * np.pad(bgm, (0, len(voice) - len(bgm)))
     mix = mix / max(1.0, np.max(np.abs(mix)))
 
@@ -115,4 +118,4 @@ def main(spec_path, out_path):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], "--voice-only" in sys.argv[3:])
