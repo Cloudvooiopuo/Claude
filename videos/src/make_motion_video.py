@@ -101,6 +101,22 @@ def text_center(d, y, text, size, color, max_w=940):
     return y
 
 
+def fit(text, size, min_size, max_w=940):
+    """1行に収まるまで文字を小さくする（min_size より小さくはしない。収まらなければ折り返す）"""
+    d = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+    while size > min_size and d.textlength(text, font=font(size)) > max_w:
+        size -= 2
+    return size
+
+
+def text_layer(text, size, color, max_w=940):
+    """折り返し込みで文字を描き、使った高さで切り抜いた透明画像を返す"""
+    size = fit(text, size, int(size * 0.65), max_w)
+    layer = Image.new("RGBA", (W, size * 6), (0, 0, 0, 0))
+    y = text_center(ImageDraw.Draw(layer), 10, text, size, color, max_w)
+    return layer.crop((0, 0, W, int(y + size * 0.1)))
+
+
 def paste_center(img, im, cx, cy, scale=1.0, angle=0.0, alpha=1.0):
     if scale <= 0.01 or alpha <= 0.01:
         return
@@ -127,18 +143,15 @@ def draw_frame(spec, kind, idx, lt, gt, n_items, credit):
         paste_center(img, emoji_img(em.get("hook", "✨"), 360), W / 2, 560 + bob, s, math.sin(gt * 1.5) * 4)
         y = 860
         for i, ln in enumerate(spec["hook"]):
+            layer = text_layer(ln, 96, FG)
             p = ease_out((lt - 0.15 - i * 0.18) / 0.35)
-            if p <= 0:
-                break
-            layer = Image.new("RGBA", (W, 140), (0, 0, 0, 0))
-            text_center(ImageDraw.Draw(layer), 10, ln, 96, FG)
-            paste_center(img, layer, W / 2, y + 70 + (1 - p) * 60, 1.0, 0, p)
-            y += 130
+            if p > 0:
+                paste_center(img, layer, W / 2, y + layer.height / 2 + (1 - p) * 60, 1.0, 0, p)
+            y += layer.height
         p = ease_out((lt - 0.8) / 0.4)
         if p > 0:
-            layer = Image.new("RGBA", (W, 80), (0, 0, 0, 0))
-            text_center(ImageDraw.Draw(layer), 10, spec["sub"], 46, MUTED)
-            paste_center(img, layer, W / 2, y + 90, 1.0, 0, p)
+            layer = text_layer(spec["sub"], 46, MUTED)
+            paste_center(img, layer, W / 2, y + 30 + layer.height / 2, 1.0, 0, p)
     elif kind == "item":
         it = idx
         # 「コツ1」が左からすべり込む
@@ -153,11 +166,12 @@ def draw_frame(spec, kind, idx, lt, gt, n_items, credit):
         # 文字が下から出る
         p2 = ease_out((lt - 0.45) / 0.4)
         if p2 > 0:
-            layer = Image.new("RGBA", (W, 330), (0, 0, 0, 0))
+            layer = Image.new("RGBA", (W, 520), (0, 0, 0, 0))
             dd = ImageDraw.Draw(layer)
-            y = text_center(dd, 10, it["name"], 74, FG)
-            text_center(dd, y + 14, it.get("note", ""), 46, MUTED)
-            paste_center(img, layer, W / 2, 1180 + (1 - p2) * 70, 1.0, 0, p2)
+            y = text_center(dd, 10, it["name"], fit(it["name"], 74, 52), FG)
+            y = text_center(dd, y + 14, it.get("note", ""), fit(it.get("note", ""), 46, 34), MUTED)
+            layer = layer.crop((0, 0, W, int(y + 10)))
+            paste_center(img, layer, W / 2, 1060 + layer.height / 2 + (1 - p2) * 70, 1.0, 0, p2)
         # 進み具合のバー
         k = n_items - it["rank"] + 1
         bw = 600
@@ -172,13 +186,11 @@ def draw_frame(spec, kind, idx, lt, gt, n_items, credit):
         paste_center(img, emoji_img(em.get("cta", "🔖"), 300), W / 2, 620, s)
         y = 880
         for i, ln in enumerate(spec["cta"]):
+            layer = text_layer(ln, 80, FG)
             p = ease_out((lt - 0.2 - i * 0.15) / 0.35)
-            if p <= 0:
-                break
-            layer = Image.new("RGBA", (W, 120), (0, 0, 0, 0))
-            text_center(ImageDraw.Draw(layer), 10, ln, 80, FG)
-            paste_center(img, layer, W / 2, y + 60 + (1 - p) * 40, 1.0, 0, p)
-            y += 115
+            if p > 0:
+                paste_center(img, layer, W / 2, y + layer.height / 2 + (1 - p) * 40, 1.0, 0, p)
+            y += layer.height
         if spec.get("foot"):
             text_center(d, y + 40, spec["foot"], 40, MUTED)
         if credit:
