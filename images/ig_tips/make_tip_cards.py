@@ -1,8 +1,9 @@
 """Instagram用の暮らしのコツ画像（1080x1350）を tips.json から作る。
 
-使い方: python3 make_tip_cards.py   → 同じフォルダに <file>.jpg を書き出す
+使い方: python3 make_tip_cards.py [tips.json]   → 同じフォルダに <file>.jpg を書き出す
 """
 import json
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -48,7 +49,7 @@ def card(tip, accent):
 
 
 def main():
-    tips = json.loads((HERE / "tips.json").read_text())
+    tips = json.loads(Path(sys.argv[1] if len(sys.argv) > 1 else HERE / "tips.json").read_text())
     for i, tip in enumerate(tips):
         card(tip, ACCENTS[i % len(ACCENTS)]).save(HERE / f"{tip['file']}.jpg", quality=92)
         print(tip["file"])
