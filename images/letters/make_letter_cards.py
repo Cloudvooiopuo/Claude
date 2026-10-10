@@ -3,11 +3,15 @@
 使い方: python3 make_letter_cards.py <spec.json> <出力フォルダ>
 spec.json は videos/src/motion/*.json と同じ形（hook / sub / items / emoji / accent）。
 表紙 → コツ1〜3 → 締め の5枚を 01.jpg〜05.jpg で書き出す。
+"photos"（make_photo_video.py と同じ形）があれば、絵文字の代わりに写真をテープで貼った形にする。
+"photo_note": true なら写真の下に「※写真はイメージです」を出す（商品紹介の回）。
 """
 import json
 import math
 import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -98,6 +102,33 @@ def stamp(bg, accent, ch):
     bg.paste(e, (int(x0 + 60 - e.width / 2), int(y0 + 70 - e.height / 2)), e)
 
 
+def snapshot(bg, accent, path, w, h, cy, angle, note=False):
+    """写真を白いふち付きで少し傾け、上にマスキングテープを貼る。写真の下の端の y を返す"""
+    im = Image.open(ROOT / path).convert("RGB")
+    s = max(w / im.width, h / im.height)
+    im = im.resize((int(im.width * s) + 1, int(im.height * s) + 1), Image.LANCZOS)
+    x, y = (im.width - w) // 2, (im.height - h) // 2
+    im = im.crop((x, y, x + w, y + h))
+    b = 18
+    card = Image.new("RGBA", (w + 2 * b, h + 2 * b), (255, 255, 255, 255))
+    card.paste(im, (b, b))
+    tape = Image.new("RGBA", (200, 56), tint(accent, 0.55) + (200,))
+    sh = Image.new("RGBA", (card.width + 40, card.height + 40), (0, 0, 0, 0))
+    ImageDraw.Draw(sh).rectangle([20, 26, card.width + 20, card.height + 26], fill=(0, 0, 0, 70))
+    sh = sh.filter(ImageFilter.GaussianBlur(10))
+    sh.alpha_composite(card, (20, 20))
+    sh = sh.rotate(angle, resample=Image.BICUBIC, expand=True)
+    bg.paste(sh, (int(W / 2 - sh.width / 2), int(cy - sh.height / 2)), sh)
+    t = tape.rotate(-angle * 3, expand=True, resample=Image.BICUBIC)
+    bg.paste(t, (int(W / 2 - t.width / 2), int(cy - sh.height / 2) + 4), t)
+    bottom = cy + sh.height / 2
+    if note:
+        ImageDraw.Draw(bg).text((W / 2, bottom - 6), "※写真はイメージです", font=font(GOTHIC, 26), fill=SOFT,
+                                anchor="ma")
+        bottom += 26
+    return bottom
+
+
 def main(spec_path, out_dir):
     s = json.loads(Path(spec_path).read_text())
     out = Path(out_dir)
@@ -109,32 +140,49 @@ def main(spec_path, out_dir):
     total = len(items) + 2
 
     # 表紙
+    ph = s.get("photos")
+    note = s.get("photo_note", False)
     bg, d = paper(acc, 1, total, 0)
-    stamp(bg, acc, em.get("hook", "✉️"))
-    d.text((PX + 70, PY + 90), f"{tag}のレター", font=font(GOTHIC, 38), fill=acc)
-    y = PY + 330
-    for ln in s["hook"]:
-        y = block(d, y, ln, MINCHO, 96, INK, gap=1.4)
-    y = block(d, y + 50, sub or "コツを3つ書きました", MINCHO, 48, SOFT)
-    d.text((W / 2, y + 70), "めくってね  →", font=font(MINCHO, 44), fill=acc, anchor="ma")
+    if ph:
+        d.text((PX + 70, PY + 60), f"{tag}のレター", font=font(GOTHIC, 34), fill=acc)
+        y = snapshot(bg, acc, ph["hook"], 640, 330, PY + 330, -3, note) + 40
+        for ln in s["hook"]:
+            y = block(d, y, ln, MINCHO, 74, INK, gap=1.35)
+    else:
+        stamp(bg, acc, em.get("hook", "✉️"))
+        d.text((PX + 70, PY + 90), f"{tag}のレター", font=font(GOTHIC, 38), fill=acc)
+        y = PY + 330
+        for ln in s["hook"]:
+            y = block(d, y, ln, MINCHO, 96, INK, gap=1.4)
+    y = block(d, y + (20 if ph else 50), sub or "コツを3つ書きました", MINCHO, 44 if ph else 48, SOFT)
+    d.text((W / 2, y + (30 if ph else 70)), "めくってね  →", font=font(MINCHO, 42 if ph else 44), fill=acc, anchor="ma")
     bg.save(out / "01.jpg", quality=92)
 
     # コツ
     for i, it in enumerate(items):
         bg, d = paper(acc, i + 2, total, i + 1)
-        d.text((W / 2, PY + 150), f"その{i + 1}", font=font(MINCHO, 84), fill=acc, anchor="ma")
-        e = emoji(em.get("items", {}).get(str(it["rank"]), "✅"), 230)
-        bg.paste(e, (int(W / 2 - e.width / 2), PY + 300), e)
-        y = block(d, PY + 600, it["name"], MINCHO, 70, INK, min_size=50)
+        if ph:
+            d.text((W / 2, PY + 70), f"その{i + 1}", font=font(MINCHO, 76), fill=acc, anchor="ma")
+            y = snapshot(bg, acc, ph["items"][str(it["rank"])], 660, 400, PY + 420, (-2.5, 2, -1.5)[i % 3], note)
+            y = block(d, y + 40, it["name"], MINCHO, 64, INK, min_size=46)
+        else:
+            d.text((W / 2, PY + 150), f"その{i + 1}", font=font(MINCHO, 84), fill=acc, anchor="ma")
+            e = emoji(em.get("items", {}).get(str(it["rank"]), "✅"), 230)
+            bg.paste(e, (int(W / 2 - e.width / 2), PY + 300), e)
+            y = block(d, PY + 600, it["name"], MINCHO, 70, INK, min_size=50)
         if it.get("note"):
             block(d, y + 30, it["note"], MINCHO, 44, SOFT, min_size=34)
         bg.save(out / f"{i + 2:02d}.jpg", quality=92)
 
     # 締め
     bg, d = paper(acc, total, total, 9)
-    e = emoji(em.get("cta", "🔖"), 200)
-    bg.paste(e, (int(W / 2 - e.width / 2), PY + 220), e)
-    y = block(d, PY + 520, "読んでくれてありがとう", MINCHO, 66, INK)
+    if ph:
+        y = snapshot(bg, acc, ph["cta"], 560, 300, PY + 260, 2, False) + 50
+    else:
+        e = emoji(em.get("cta", "🔖"), 200)
+        bg.paste(e, (int(W / 2 - e.width / 2), PY + 220), e)
+        y = PY + 520
+    y = block(d, y, "読んでくれてありがとう", MINCHO, 66, INK)
     y = block(d, y + 20, "保存して、後で見返してね", MINCHO, 56, INK)
     if s.get("pr", True):
         y = block(d, y + 20, "紹介した物はプロフィールのリンクから", MINCHO, 42, SOFT)

@@ -3,12 +3,15 @@
 
 使い方: python3 make_pop_cards.py <pop.json> <出力フォルダ>
 pop.json の各要素: {"file","tag","title","hero":[大1,小,小],"steps":[[絵,文],...] か "body":"..","ask"(任意),"accent"(任意)}
+"photo"（リポジトリの一番上からの相対パス）があれば、上半分を写真にして、絵は小さなシール1つだけにする。
 """
 import json
 import math
 import random
 import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -74,6 +77,30 @@ def card(tip, accent, seed):
     rnd = random.Random(seed)
     img = Image.new("RGBA", (W, H), rgb(accent) + (255,))
     d = ImageDraw.Draw(img)
+    if tip.get("photo"):
+        photo_top(img, tip, accent, rnd)
+    else:
+        hero_top(img, d, tip, accent, rnd)
+    return bottom_card(img, tip, accent)
+
+
+def photo_top(img, tip, accent, rnd):
+    """上半分（0〜700px）を写真にして、タグと小さなシールを載せる"""
+    ph = Image.open(ROOT / tip["photo"]).convert("RGB")
+    th = 700
+    s = max(W / ph.width, th / ph.height)
+    ph = ph.resize((int(ph.width * s) + 1, int(ph.height * s) + 1), Image.LANCZOS)
+    x, y = (ph.width - W) // 2, int((ph.height - th) * tip.get("photo_y", 0.5))
+    img.paste(ph.crop((x, y, x + W, y + th)), (0, 0))
+    d = ImageDraw.Draw(img)
+    tag = tip["tag"]
+    tw = d.textlength(tag, font=font(40))
+    d.rounded_rectangle([60, 60, 60 + tw + 64, 132], 36, fill=(255, 255, 255, 235))
+    d.text((92, 96), tag, font=font(40), fill=accent, anchor="lm")
+    put(img, sticker(tip["hero"][0], 130, rnd.uniform(-12, 12)), W - 150, 560)
+
+
+def hero_top(img, d, tip, accent, rnd):
     # 背景の水玉と斜めの帯
     for _ in range(14):
         r = rnd.randint(30, 120)
@@ -94,6 +121,9 @@ def card(tip, accent, seed):
         put(img, sticker(hero[1], 140, rnd.uniform(-20, 20)), W / 2 - 300, 300)
     if len(hero) > 2:
         put(img, sticker(hero[2], 140, rnd.uniform(-20, 20)), W / 2 + 300, 430)
+
+
+def bottom_card(img, tip, accent):
     # 白いカード
     top = 640
     sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
