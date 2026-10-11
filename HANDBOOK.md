@@ -48,7 +48,7 @@ Addnessのゴール「TikTok・Instagram・Threadsに毎日出し続ける仕組
 
 ### 準備（新しい環境で1回）
 
-- Python の道具：`pip install pillow numpy<2 pyopenjtalk-prebuilt`（ffmpeg も要る）
+- Python の道具：`pip install pillow "numpy<2" pyopenjtalk-prebuilt imageio-ffmpeg`
 - VOICEVOX：`dockerd` を起動してから
   `docker pull voicevox/voicevox_engine:cpu-latest` → `docker run -d -p 50021:50021 voicevox/voicevox_engine:cpu-latest`（localhost:50021。プロキシは通さない）
 - ネットワーク：環境の許可ドメインに `commons.wikimedia.org`・`upload.wikimedia.org`・`raw.githubusercontent.com` が要る。Commons の `api.php` は混雑で429になりやすいので、`commons_search.py` は検索ページ→ファイルページでライセンス確認→縮小版を取る方法にしてある
