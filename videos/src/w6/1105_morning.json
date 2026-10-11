@@ -37,12 +37,12 @@
   ],
   "foot": "",
   "photos": {
-    "hook": "",
+    "hook": "photos/w6/1105_morning_hook.jpg",
     "items": {
-      "3": "",
-      "2": "",
-      "1": ""
+      "3": "photos/w6/1105_morning_1.jpg",
+      "2": "photos/w6/1105_morning_2.jpg",
+      "1": "photos/w6/1105_morning_3.jpg"
     },
-    "cta": ""
+    "cta": "photos/w6/1105_morning_cta.jpg"
   }
 }

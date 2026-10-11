@@ -104,10 +104,11 @@ def stamp(bg, accent, ch):
 
 def snapshot(bg, accent, path, w, h, cy, angle, note=False):
     """写真を白いふち付きで少し傾け、上にマスキングテープを貼る。写真の下の端の y を返す"""
+    path, _, fx = path.partition("#")
     im = Image.open(ROOT / path).convert("RGB")
     s = max(w / im.width, h / im.height)
     im = im.resize((int(im.width * s) + 1, int(im.height * s) + 1), Image.LANCZOS)
-    x, y = (im.width - w) // 2, (im.height - h) // 2
+    x, y = int((im.width - w) * float(fx or 0.5)), (im.height - h) // 2
     im = im.crop((x, y, x + w, y + h))
     b = 18
     card = Image.new("RGBA", (w + 2 * b, h + 2 * b), (255, 255, 255, 255))
@@ -145,9 +146,11 @@ def main(spec_path, out_dir):
     bg, d = paper(acc, 1, total, 0)
     if ph:
         d.text((PX + 70, PY + 60), f"{tag}のレター", font=font(GOTHIC, 34), fill=acc)
-        y = snapshot(bg, acc, ph["hook"], 640, 330, PY + 330, -3, note) + 40
+        if s.get("pr", True):
+            d.text((W - PX - 70, PY + 60), "#PR", font=font(GOTHIC, 34), fill=SOFT, anchor="ra")
+        y = snapshot(bg, acc, ph["hook"], 600, 290, PY + 300, -3, note) + 40
         for ln in s["hook"]:
-            y = block(d, y, ln, MINCHO, 74, INK, gap=1.35)
+            y = block(d, y, ln, MINCHO, 66, INK, gap=1.35)
     else:
         stamp(bg, acc, em.get("hook", "✉️"))
         d.text((PX + 70, PY + 90), f"{tag}のレター", font=font(GOTHIC, 38), fill=acc)

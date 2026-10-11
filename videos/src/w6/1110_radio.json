@@ -37,13 +37,13 @@
   ],
   "foot": "",
   "photos": {
-    "hook": "",
+    "hook": "photos/w6/1110_radio_hook.jpg",
     "items": {
-      "3": "",
-      "2": "",
-      "1": ""
+      "3": "photos/w6/1110_radio_1.jpg",
+      "2": "photos/w6/1110_radio_2.jpg",
+      "1": "photos/w6/1110_radio_3.jpg"
     },
-    "cta": ""
+    "cta": "photos/w6/1110_radio_cta.jpg"
   },
   "slot": 49,
   "say": {

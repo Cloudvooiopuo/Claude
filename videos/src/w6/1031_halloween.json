@@ -37,13 +37,13 @@
   ],
   "foot": "",
   "photos": {
-    "hook": "",
+    "hook": "photos/w6/1031_halloween_hook.jpg",
     "items": {
-      "3": "",
-      "2": "",
-      "1": ""
+      "3": "photos/w6/1031_halloween_1.jpg#0.8",
+      "2": "photos/w6/1031_halloween_2.jpg",
+      "1": "photos/w6/1031_halloween_3.jpg"
     },
-    "cta": ""
+    "cta": "photos/w6/1031_halloween_cta.jpg"
   },
   "slot": 44,
   "say": {

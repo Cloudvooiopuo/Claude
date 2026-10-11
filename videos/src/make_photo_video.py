@@ -4,6 +4,7 @@
 使い方: python3 make_photo_video.py <spec.json> <out.mp4>
 spec.json は videos/src/motion/*.json と同じ形に、次を足す:
   "photos": {"hook": "photos/w6/xxx.jpg", "items": {"3": "...", "2": "...", "1": "..."}, "cta": "..."}
+     （"photos/w6/xxx.jpg#0.3" で横のどこを見せるかを指定できる）
   "photo_note": true  … 商品紹介の回。実物ではない似た写真なので、画面に「※写真はイメージです」を出す
 写真のパスはリポジトリの一番上からの相対パス。出典は photos/credits.json。
 """
@@ -41,12 +42,14 @@ def ease_out(t):
 
 
 def cover(path, scale=1.18):
-    """画面より少し大きく切り抜いておく（寄り・横移動の余白）"""
+    """画面より少し大きく切り抜いておく（寄り・横移動の余白）。
+    "photos/x.jpg#0.3" のように # の後に 0〜1 を書くと、横長の写真のどこを見せるか（左0・右1）を決められる"""
+    path, _, fx = path.partition("#")
     im = Image.open(ROOT / path).convert("RGB")
     tw, th = int(W * scale), int(H * scale)
     s = max(tw / im.width, th / im.height)
     im = im.resize((int(im.width * s) + 1, int(im.height * s) + 1), Image.LANCZOS)
-    x, y = (im.width - tw) // 2, (im.height - th) // 2
+    x, y = int((im.width - tw) * float(fx or 0.5)), (im.height - th) // 2
     return im.crop((x, y, x + tw, y + th))
 
 

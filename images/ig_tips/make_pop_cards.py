@@ -86,11 +86,12 @@ def card(tip, accent, seed):
 
 def photo_top(img, tip, accent, rnd):
     """上半分（0〜700px）を写真にして、タグと小さなシールを載せる"""
-    ph = Image.open(ROOT / tip["photo"]).convert("RGB")
+    path, _, fx = tip["photo"].partition("#")
+    ph = Image.open(ROOT / path).convert("RGB")
     th = 700
     s = max(W / ph.width, th / ph.height)
     ph = ph.resize((int(ph.width * s) + 1, int(ph.height * s) + 1), Image.LANCZOS)
-    x, y = (ph.width - W) // 2, int((ph.height - th) * tip.get("photo_y", 0.5))
+    x, y = int((ph.width - W) * float(fx or 0.5)), int((ph.height - th) * tip.get("photo_y", 0.5))
     img.paste(ph.crop((x, y, x + W, y + th)), (0, 0))
     d = ImageDraw.Draw(img)
     tag = tip["tag"]
