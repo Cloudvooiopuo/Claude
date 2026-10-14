@@ -570,10 +570,10 @@
   "title": "File:USB-C cable 2017 A.jpg"
  },
  "photos/w8/1017_packing_3.jpg": {
-  "artist": "",
+  "artist": "Whitepixels",
   "license": "CC0",
-  "page": "https://commons.wikimedia.org/wiki/File%3ASuitcase_lock.jpg",
-  "title": "File:Suitcase lock.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File%3APlastic_clothespins.jpg",
+  "title": "File:Plastic clothespins.jpg"
  },
  "photos/w8/1017_packing_hook.jpg": {
   "artist": "",
@@ -725,6 +725,12 @@
   "page": "https://commons.wikimedia.org/wiki/File%3AAdapted_Lens_on_Mirrorless_Camera_%28side_view%29.jpg",
   "title": "File:Adapted Lens on Mirrorless Camera (side view).jpg"
  },
+ "photos/w8/1023_photo_cta.jpg": {
+  "artist": "",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3AMacro_Flower_by_Fanci_Baer.jpg",
+  "title": "File:Macro Flower by Fanci Baer.jpg"
+ },
  "photos/w8/1023_photo_hook.jpg": {
   "artist": "Flanoz",
   "license": "CC0",
@@ -779,6 +785,84 @@
   "page": "https://commons.wikimedia.org/wiki/File%3AUSB-C-connector-and-cable.png",
   "title": "File:USB-C-connector-and-cable.png"
  },
+ "photos/w8/1026_fixedcost_1.jpg": {
+  "artist": "",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3ACalculator-dynamic-gradient.png",
+  "title": "File:Calculator-dynamic-gradient.png"
+ },
+ "photos/w8/1026_fixedcost_2.jpg": {
+  "artist": "",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3APiggy-bank-968302.jpg",
+  "title": "File:Piggy-bank-968302.jpg"
+ },
+ "photos/w8/1026_fixedcost_3.jpg": {
+  "artist": "",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3ACasio_FN-20_electronic_calculator.JPG",
+  "title": "File:Casio FN-20 electronic calculator.JPG"
+ },
+ "photos/w8/1026_fixedcost_cta.jpg": {
+  "artist": "",
+  "license": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File%3AArgentina_1828_8_Escudos.jpg",
+  "title": "File:Argentina 1828 8 Escudos.jpg"
+ },
+ "photos/w8/1026_fixedcost_hook.jpg": {
+  "artist": "QuinceMedia on Pixabay",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3APiggy_bank_on_pink_background.jpg",
+  "title": "File:Piggy bank on pink background.jpg"
+ },
+ "photos/w8/1027_streaming_1.jpg": {
+  "artist": "",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3AThe_Barn_Theater_original_setup_01.jpg",
+  "title": "File:The Barn Theater original setup 01.jpg"
+ },
+ "photos/w8/1027_streaming_2.jpg": {
+  "artist": "Alex Munsell alexmunsell",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3ABowl_of_Popcorn_%28Unsplash%29.jpg",
+  "title": "File:Bowl of Popcorn (Unsplash).jpg"
+ },
+ "photos/w8/1027_streaming_3.jpg": {
+  "artist": "",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3AUnder_Remote_Control_%28321580636%29.jpg",
+  "title": "File:Under Remote Control (321580636).jpg"
+ },
+ "photos/w8/1027_streaming_hook.jpg": {
+  "artist": "",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3ADigital_home_ap.jpg",
+  "title": "File:Digital home ap.jpg"
+ },
+ "photos/w8/1028_rakuten_point_1.jpg": {
+  "artist": "Estormiz",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3AShopping_carts_Lidl_Tuira_Oulu_20251005.jpg",
+  "title": "File:Shopping carts Lidl Tuira Oulu 20251005.jpg"
+ },
+ "photos/w8/1028_rakuten_point_2.jpg": {
+  "artist": "",
+  "license": "Public domain",
+  "page": "https://commons.wikimedia.org/wiki/File%3AReceipt_for_temporary_bonds.jpg",
+  "title": "File:Receipt for temporary bonds.jpg"
+ },
+ "photos/w8/1028_rakuten_point_3.jpg": {
+  "artist": "Fumikas Sagisavas",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3AXinyihua_shopping_cart.jpg",
+  "title": "File:Xinyihua shopping cart.jpg"
+ },
+ "photos/w8/1028_rakuten_point_hook.jpg": {
+  "artist": "ZBMAUE oopAAM",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File%3ASZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E7%A6%8F%E7%94%B0_Futian_%E6%B7%B1%E5%8D%97%E4%B8%AD%E8%B7%AF_Shennan_Middle_Road_IN_City_Park_mall_shop_%E6%B0%B8%E8%BC%9D%E8%B6%85%E5%B8%82_YongHui_Supermarket_shopping_carts_May_2026_N13P_05.jpg",
+  "title": "File:SZ 深圳 Shenzhen 福田 Futian 深南中路 Shennan Middle Road IN City Park mall shop 永輝超市 YongHui Supermarket shopping carts May 2026 N13P 05.jpg"
+ },
  "photos/w8/1029_night_1.jpg": {
   "artist": "",
   "license": "CC0",
@@ -812,19 +896,19 @@
  "photos/w8/1030_desk_cable_2.jpg": {
   "artist": "",
   "license": "CC0",
-  "page": "https://commons.wikimedia.org/wiki/File%3APhotographer_desk_setup_%28Unsplash%29.jpg",
-  "title": "File:Photographer desk setup (Unsplash).jpg"
+  "page": "https://commons.wikimedia.org/wiki/File%3AUSB-C_cable_2017_A.jpg",
+  "title": "File:USB-C cable 2017 A.jpg"
  },
  "photos/w8/1030_desk_cable_3.jpg": {
   "artist": "",
   "license": "CC0",
-  "page": "https://commons.wikimedia.org/wiki/File%3ACozy_Desk_Setup_with_Tea_and_Tablet_Streaming_Music.jpg",
-  "title": "File:Cozy Desk Setup with Tea and Tablet Streaming Music.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File%3APhotographer_desk_setup_%28Unsplash%29.jpg",
+  "title": "File:Photographer desk setup (Unsplash).jpg"
  },
  "photos/w8/1030_desk_cable_hook.jpg": {
   "artist": "",
   "license": "CC0",
-  "page": "https://commons.wikimedia.org/wiki/File%3ADesk_Setup_%28Unsplash%29.jpg",
-  "title": "File:Desk Setup (Unsplash).jpg"
+  "page": "https://commons.wikimedia.org/wiki/File%3ACozy_Desk_Setup_with_Tea_and_Tablet_Streaming_Music.jpg",
+  "title": "File:Cozy Desk Setup with Tea and Tablet Streaming Music.jpg"
  }
 }
