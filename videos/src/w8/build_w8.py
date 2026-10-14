@@ -47,7 +47,7 @@ PLAN = {
     "1029_night": ("1029_night", "2026-10-29", "letter", "レジャー", False,
                    ["c2/1029a/city_lights_night_00.jpg", "c2/1029b/lantern_night_02.jpg", "c2/1029a/city_lights_night_01.jpg", "c2/1029b/lantern_night_00.jpg", "c2/1029a/city_lights_night_00.jpg"]),
     "1030_desk_cable": ("t7_desk_cable", "2026-10-30", "video", "アフィリエイト", True,
-                        ["c2/1030a/desk_setup_01.jpg", "c2/1030a/desk_setup_00.jpg", "c2/1030a/desk_setup_02.jpg", "c2/1025a/usb_cable_01.jpg", "c2/1030a/desk_setup_01.jpg"]),
+                        ["c2/1030a/desk_setup_00.jpg", "c2/1030a/desk_setup_02.jpg", "c2/1025a/usb_cable_01.jpg", "photos/w6/1104_pens_3.jpg", "c2/1030a/desk_setup_00.jpg"]),
 }
 
 
