@@ -90,6 +90,8 @@ def draw_table(d, s, x, y, w, scale, accent, rows):
         d.text(((xs[i] + xs[i + 1]) / 2, y + rh / 2), c, font=font(GOTHIC, int(30 * scale)), fill=INK, anchor="mm")
     for r in range(rows + 1):
         d.line([x, y + rh * (r + 1), x + w, y + rh * (r + 1)], fill=tint(accent, 0.5), width=2)
+    for r, lab in enumerate(s["table"].get("labels", [])[:rows]):
+        d.text(((xs[0] + xs[1]) / 2, y + rh * (r + 1.5)), lab, font=font(GOTHIC, int(32 * scale)), fill=INK, anchor="mm")
     for xx in xs:
         d.line([xx, y, xx, y + rh * (rows + 1)], fill=tint(accent, 0.5), width=2)
     y += rh * (rows + 1) + int(40 * scale)
