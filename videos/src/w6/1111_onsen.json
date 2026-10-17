@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-11",
+  "form": "letter",
+  "kind": "レジャー",
+  "accent": "#81B29A",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "日帰り温泉に",
+    "行くなら"
+  ],
+  "sub": "レジャー｜温泉のコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "平日か、朝いちばんに行く",
+      "note": "空いていてゆっくりできる"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "タオルは持っていく",
+      "note": "貸し出しは有料のことが多い"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "湯上がりに水を1杯",
+      "note": "思ったより汗をかいている"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1111_onsen_hook.jpg",
+    "items": {
+      "3": "photos/w6/1111_onsen_1.jpg",
+      "2": "photos/w6/1111_onsen_2.jpg",
+      "1": "photos/w6/1111_onsen_3.jpg"
+    },
+    "cta": "photos/w6/1111_onsen_cta.jpg"
+  }
+}
