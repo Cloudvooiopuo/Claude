@@ -7,6 +7,7 @@ type:
   brown      … ブラウンノイズ（低いザーという音）
   pad        … 和音だけ（ゆっくり、打楽器なし）
   waves      … 波の音（ゆっくり寄せて返す）＋和音
+  sunny      … 晴れ：遠くの鳥のさえずり＋そよ風＋明るい和音
 """
 import sys
 import wave
@@ -73,14 +74,65 @@ def waves(n, rng):
     return x / (np.abs(x).max() + 1e-9)
 
 
+def wind(n, rng):
+    t = np.arange(n) / SR
+    w = lowpass(rng.standard_normal(n), 0.03)
+    gust = 0.55 + 0.45 * np.sin(2 * np.pi * t / 23 + 1.3 * np.sin(2 * np.pi * t / 71))
+    x = w * gust
+    return x / (np.abs(x).max() + 1e-9)
+
+
+def birds(n, rng):
+    """遠くの小鳥。数秒おきに短いさえずり（高さが上下する音）を2〜5回。"""
+    out = np.zeros(n)
+    pos = int(rng.uniform(1, 4) * SR)
+    while pos < n:
+        base = rng.uniform(2600, 4200)
+        for _ in range(rng.integers(2, 6)):
+            d = rng.uniform(0.06, 0.16)
+            tt = np.arange(int(d * SR)) / SR
+            sweep = base * (1 + rng.uniform(-0.25, 0.35) * tt / d)
+            ph = 2 * np.pi * np.cumsum(sweep) / SR
+            env = np.sin(np.pi * tt / d) ** 2
+            seg = np.sin(ph + 0.4 * np.sin(2 * np.pi * 38 * tt)) * env * rng.uniform(0.3, 1.0)
+            e = min(n, pos + len(seg))
+            out[pos:e] += seg[: e - pos]
+            pos += len(seg) + int(rng.uniform(0.04, 0.12) * SR)
+        pos += int(rng.uniform(2.5, 9) * SR)
+    out = lowpass(out, 0.5)                               # 遠くで鳴っている感じに丸める
+    return out / (np.abs(out).max() + 1e-9)
+
+
+def pad_bright(n, rng):
+    t = np.arange(n) / SR
+    roots = [53, 48, 50, 55]                              # F C Dm G（明るめ、少し高め）
+    seg = 18.0
+    out = np.zeros(n)
+    for i, r in enumerate(roots * int(np.ceil(n / SR / seg / 4) + 1)):
+        s, e = int(i * seg * SR), int((i + 1.5) * seg * SR)
+        if s >= n:
+            break
+        e = min(e, n)
+        tt = t[s:e] - t[s]
+        env = np.sin(np.pi * np.clip(tt / (seg * 1.5), 0, 1)) ** 2
+        minor = (i % 4 == 2)
+        chord = [r, r + (3 if minor else 4), r + 7, r + 12, r + 14]
+        sig = sum(np.sin(2 * np.pi * hz(m) * tt * (1 + 0.0006 * j)) / (1 + j * 0.7) for j, m in enumerate(chord))
+        out[s:e] += env * sig
+    out *= 0.85 + 0.15 * np.sin(2 * np.pi * t / 29)
+    return out / (np.abs(out).max() + 1e-9)
+
+
 MIX = {
     "rain_pad": [("rain", 0.55), ("pad", 0.35)],
     "rain": [("rain", 0.8)],
     "brown": [("brown", 0.7)],
     "pad": [("pad", 0.6)],
     "waves": [("waves", 0.6), ("pad", 0.25)],
+    "sunny": [("pad_bright", 0.45), ("wind", 0.22), ("birds", 0.12)],
 }
-GEN = {"rain": rain, "brown": brown, "pad": pad, "waves": waves}
+GEN = {"rain": rain, "brown": brown, "pad": pad, "waves": waves,
+       "wind": wind, "birds": birds, "pad_bright": pad_bright}
 
 
 def make(sec, kind, seed):
