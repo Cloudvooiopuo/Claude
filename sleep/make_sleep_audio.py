@@ -21,7 +21,11 @@ SR = 44100
 def brown(n, rng):
     x = np.cumsum(rng.standard_normal(n))
     # ゆっくり流れないように、ゆるく中央へ戻す
-    x -= np.convolve(x, np.ones(SR) / SR, mode="same")
+    c = np.cumsum(np.concatenate([[0], x]))
+    h = SR // 2
+    idx = np.arange(len(x))
+    lo, hi = np.clip(idx - h, 0, len(x)), np.clip(idx + h, 0, len(x))
+    x = x - (c[hi] - c[lo]) / np.maximum(hi - lo, 1)
     return x / (np.abs(x).max() + 1e-9)
 
 
