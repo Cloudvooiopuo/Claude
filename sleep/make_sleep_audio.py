@@ -89,6 +89,8 @@ def birds(n, rng):
     while pos < n:
         base = rng.uniform(2600, 4200)
         for _ in range(rng.integers(2, 6)):
+            if pos >= n:
+                break
             d = rng.uniform(0.06, 0.16)
             tt = np.arange(int(d * SR)) / SR
             sweep = base * (1 + rng.uniform(-0.25, 0.35) * tt / d)

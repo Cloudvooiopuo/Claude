@@ -4,6 +4,7 @@
 - 画面はほぼ動かないので、映像は1秒1コマ・低いビットレートにしてファイルを小さくする
 - 最後の10分は音を少しずつ小さくする（寝ている人を起こさない）
 """
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -42,7 +43,7 @@ def main(bg, wav, hours, out, t1, t2):
         "-t", str(total),
         "-c:v", "libx264", "-tune", "stillimage", "-preset", "veryfast", "-r", "1", "-pix_fmt", "yuv420p", "-crf", "28",
         "-af", f"afade=t=in:d=10,afade=t=out:st={fade_st}:d={min(600, total)}",
-        "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", out,
+        "-c:a", "aac", "-b:a", os.environ.get("ABR", "128k"), "-movflags", "+faststart", out,
     ], check=True)
     print("done", out, Path(out).stat().st_size // 1_000_000, "MB")
 
