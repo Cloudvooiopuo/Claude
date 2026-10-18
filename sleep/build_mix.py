@@ -2,9 +2,10 @@
 
 使い方: python3 build_mix.py <out.wav> <分> <曲1.mp3> [曲2.mp3 ...]
 - 曲は順番に流し、曲と曲の間に20〜40秒の「自然音だけ」の時間を入れる（くり返しが目立たないように）
-- 自然音（そよ風・小鳥）は10分ごとに違う番号で作ってつなぐので、同じ音のくり返しにならない
+- 自然音（環境変数 AMB=sunny/waves/rain、既定は sunny＝そよ風・小鳥）は10分ごとに違う番号で作ってつなぐので、同じ音のくり返しにならない
 - 最後の10分は少しずつ小さくする
 """
+import os
 import subprocess
 import sys
 import wave
@@ -24,10 +25,18 @@ def load(path):
     return x / (np.sqrt(np.mean(x ** 2)) + 1e-9)
 
 
+AMB = os.environ.get("AMB", "sunny")
+
+
 def ambience(sec, seed):
     rng = np.random.default_rng(seed)
     n = int(sec * SR)
-    a = 0.6 * m.wind(n, rng) + 0.25 * m.birds(n, rng)
+    if AMB == "waves":
+        a = 0.8 * m.waves(n, rng) + 0.2 * m.wind(n, rng)
+    elif AMB == "rain":
+        a = m.rain(n, rng)
+    else:
+        a = 0.6 * m.wind(n, rng) + 0.25 * m.birds(n, rng)
     a = a / (np.sqrt(np.mean(a ** 2)) + 1e-9)
     return np.stack([a, np.roll(a, 331)], 1).astype(np.float32)
 
@@ -55,7 +64,7 @@ def main(out, minutes, songs):
             fade = np.minimum(1, np.minimum(np.arange(len(t)), np.arange(len(t))[::-1]) / (3 * SR))[:, None]
             music = np.concatenate([music, gap, t * fade])
         seg, music = music[:n], music[n:]
-        mix = 0.12 * seg + 0.05 * amb
+        mix = 0.12 * seg + float(os.environ.get("AMBGAIN", "0.05")) * amb
         # 区間のつなぎ目は自然音同士をなめらかに（先頭0.5秒）
         t0 = np.arange(n) + pos
         fade_out = np.clip((total - t0) / (600 * SR), 0, 1)[:, None]
