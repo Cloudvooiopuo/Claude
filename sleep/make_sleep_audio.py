@@ -81,6 +81,20 @@ def city(n, rng):
     return x / (np.abs(x).max() + 1e-9)
 
 
+def stream(n, rng):
+    # 小川：さらさら（高めの水音）＋細かいゆらぎ（ちょろちょろ）
+    w = rng.standard_normal(n)
+    hiss = lowpass(w, 0.4) - lowpass(w, 0.08)
+    mod = lowpass(rng.standard_normal(n), 0.0015)
+    mod = 0.6 + 0.4 * np.tanh(mod / (np.std(mod) + 1e-9))
+    gurgle = np.zeros(n)
+    k = rng.integers(0, n, n // 600)
+    gurgle[k] = rng.uniform(0.2, 1.0, len(k)) * rng.choice([-1, 1], len(k))
+    gurgle = lowpass(gurgle, 0.2) - lowpass(gurgle, 0.03)
+    x = 0.7 * hiss * mod / (np.abs(hiss).max() + 1e-9) + 0.35 * gurgle / (np.abs(gurgle).max() + 1e-9)
+    return x / (np.abs(x).max() + 1e-9)
+
+
 def pad(n, rng):
     t = np.arange(n) / SR
     roots = [48, 45, 41, 43]                              # C Am F G（低め）
