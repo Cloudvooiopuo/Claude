@@ -2,7 +2,7 @@
 
 使い方: python3 build_mix.py <out.wav> <分> <曲1.mp3> [曲2.mp3 ...]
 - 曲は順番に流し、曲と曲の間に20〜40秒の「自然音だけ」の時間を入れる（くり返しが目立たないように）
-- 自然音（環境変数 AMB=sunny/waves/rain/night/fire/city、既定は sunny＝そよ風・小鳥）は10分ごとに違う番号で作ってつなぐので、同じ音のくり返しにならない
+- 自然音（環境変数 AMB=sunny/waves/rain/night/fire/city/snow、既定は sunny＝そよ風・小鳥）は10分ごとに違う番号で作ってつなぐので、同じ音のくり返しにならない
 - 最後の10分は少しずつ小さくする
 """
 import os
@@ -35,6 +35,8 @@ def ambience(sec, seed):
         a = 0.8 * m.waves(n, rng) + 0.2 * m.wind(n, rng)
     elif AMB == "night":
         a = 0.7 * m.wind(n, rng) + 0.3 * m.brown(n, rng)
+    elif AMB == "snow":
+        a = 0.9 * m.wind(n, rng) + 0.1 * m.lowpass(rng.standard_normal(n), 0.3)
     elif AMB == "city":
         a = 0.75 * m.city(n, rng) + 0.25 * m.wind(n, rng)
     elif AMB == "fire":
