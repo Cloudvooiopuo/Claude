@@ -50,6 +50,21 @@ def hz(m):
     return 440 * 2 ** ((m - 69) / 12)
 
 
+def fire(n, rng):
+    # 暖炉：低いゴーという燃える音＋パチパチ（細かい音）＋ときどきパチッ（大きめ）
+    w = rng.standard_normal(n)
+    roar = lowpass(w, 0.01)
+    roar = roar * (0.7 + 0.3 * lowpass(rng.standard_normal(n), 0.00005) / 0.01)
+    crack = np.zeros(n)
+    k = rng.integers(0, n, n // 2500)
+    crack[k] = rng.uniform(0.2, 0.7, len(k)) * rng.choice([-1, 1], len(k))
+    k = rng.integers(0, n, n // 40000)
+    crack[k] = rng.uniform(0.8, 1.0, len(k)) * rng.choice([-1, 1], len(k))
+    crack = lowpass(crack, 0.5) - lowpass(crack, 0.05)
+    x = 0.6 * roar / (np.abs(roar).max() + 1e-9) + 0.5 * crack / (np.abs(crack).max() + 1e-9)
+    return x / (np.abs(x).max() + 1e-9)
+
+
 def pad(n, rng):
     t = np.arange(n) / SR
     roots = [48, 45, 41, 43]                              # C Am F G（低め）
