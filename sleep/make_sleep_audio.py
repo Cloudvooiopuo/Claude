@@ -65,6 +65,22 @@ def fire(n, rng):
     return x / (np.abs(x).max() + 1e-9)
 
 
+def city(n, rng):
+    # 夜の街：遠くの低いざわめき＋ときどき遠くを通る車（ふくらんで消える）
+    hum = lowpass(rng.standard_normal(n), 0.004)
+    hum = hum / (np.abs(hum).max() + 1e-9)
+    band = lowpass(rng.standard_normal(n), 0.05) - lowpass(rng.standard_normal(n), 0.005)
+    env = np.zeros(n)
+    t = np.arange(n)
+    for c in rng.integers(0, n, max(1, n // (SR * 25))):
+        w = rng.uniform(3, 7) * SR
+        lo, hi = int(max(0, c - 3 * w)), int(min(n, c + 3 * w))
+        env[lo:hi] += rng.uniform(0.3, 1.0) * np.exp(-((t[lo:hi] - c) / w) ** 2)
+    cars = band / (np.abs(band).max() + 1e-9) * env
+    x = 0.7 * hum + 0.5 * cars
+    return x / (np.abs(x).max() + 1e-9)
+
+
 def pad(n, rng):
     t = np.arange(n) / SR
     roots = [48, 45, 41, 43]                              # C Am F G（低め）
