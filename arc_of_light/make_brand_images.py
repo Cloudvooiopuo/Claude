@@ -116,8 +116,17 @@ def text(im, s, font, cx, cy, spacing, fill=(255, 255, 255, 245), glow=True):
     im.alpha_composite(layer)
 
 
-# 昼の虹は色をはっきりめに
-DAY_RAINBOW = [(255, 120, 150), (255, 170, 100), (255, 220, 90), (110, 215, 150), (90, 170, 255), (165, 130, 255)]
+# 昼の版は虹ではなく「光の弧」：白から淡い金色の細い弧を、明るく光らせる
+LIGHT_ARC = [(255, 255, 255), (255, 247, 220), (255, 232, 170)]
+
+
+def flare(im, x, y, s):
+    # 弧の先に置く光の粒（大きなきらめき＋やわらかい光の輪）
+    layer = Image.new("RGBA", im.size, (255, 255, 255, 0))
+    d = ImageDraw.Draw(layer)
+    d.ellipse([x - s, y - s, x + s, y + s], fill=(255, 250, 225, 200))
+    im.alpha_composite(blur(layer, s * 0.9))
+    star(ImageDraw.Draw(im), x, y, s * 1.6, 255)
 
 
 def clouds(size, seed, n, avoid=None):
@@ -144,8 +153,9 @@ def icon_day():
     im = gradient(w, h, DAY_TOP, DAY_BOTTOM).convert("RGBA")
     im.alpha_composite(clouds((w, h), 2, 4, avoid=(120, 180, 680, 680)))
     im.alpha_composite(sparkles((w, h), 40, 5, big=5, avoid=(150, 520, 650, 650)))
-    im.alpha_composite(arc((w, h), w / 2, h * 0.60, 250, 90, DAY_RAINBOW))
-    star(ImageDraw.Draw(im), w * 0.72, h * 0.30, 26, 255)
+    im.alpha_composite(arc((w, h), w / 2, h * 0.60, 250, 22, LIGHT_ARC))
+    im.alpha_composite(arc((w, h), w / 2, h * 0.60, 244, 8, [(255, 255, 255)]))
+    flare(im, w / 2 + 250 * math.cos(math.radians(-50)), h * 0.60 + 250 * math.sin(math.radians(-50)), 22)
     text(im, "arc of light", ImageFont.truetype(FONT, 74), w / 2, h * 0.73, 6, fill=INK, glow=False)
     im.convert("RGB").save(OUT / "icon_day_800.png")
 
@@ -156,7 +166,9 @@ def banner_day():
     sx0, sy0 = (w - 1546) / 2, (h - 423) / 2
     im.alpha_composite(clouds((w, h), 9, 9, avoid=(sx0 - 100, sy0 - 80, sx0 + 1646, sy0 + 503)))
     im.alpha_composite(sparkles((w, h), 160, 11, big=12, avoid=(sx0 - 60, sy0 - 60, sx0 + 1606, sy0 + 483)))
-    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 300, 70, DAY_RAINBOW))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 300, 24, LIGHT_ARC))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 294, 8, [(255, 255, 255)]))
+    flare(im, w / 2 + 300 * math.cos(math.radians(-50)), sy0 + 330 + 300 * math.sin(math.radians(-50)), 26)
     text(im, "arc of light", ImageFont.truetype(FONT, 120), w / 2, sy0 + 265, 12, fill=INK, glow=False)
     text(im, "pop  ·  chill  ·  ballad  ·  bgm", ImageFont.truetype(FONT, 40), w / 2, sy0 + 372, 10, fill=(60, 64, 120, 230), glow=False)
     im.convert("RGB").save(OUT / "banner_day_2560x1440.png")
@@ -196,3 +208,58 @@ if __name__ == "__main__":
     icon_day()
     banner_day()
     print("done")
+
+
+def photo_bg(path, w, h, bright=1.08, soften=0):
+    # 写真を枠いっぱいに切り抜き、少し明るく、やわらかくする
+    from PIL import ImageEnhance
+    p = Image.open(path).convert("RGB")
+    s = max(w / p.width, h / p.height)
+    p = p.resize((int(p.width * s) + 1, int(p.height * s) + 1), Image.LANCZOS)
+    x, y = (p.width - w) // 2, (p.height - h) // 2
+    p = p.crop((x, y, x + w, y + h))
+    p = ImageEnhance.Brightness(p).enhance(bright)
+    p = ImageEnhance.Color(p).enhance(1.1)
+    if soften:
+        # ぼかして、写真の中の看板や文字を読めなくし、ロゴの文字を引き立てる
+        p = p.filter(ImageFilter.GaussianBlur(soften))
+    return p.convert("RGBA")
+
+
+def veil(size, box, a=120):
+    # 文字の後ろだけ白くかすませて読みやすくする
+    layer = Image.new("RGBA", size, (255, 255, 255, 0))
+    ImageDraw.Draw(layer).rounded_rectangle(box, radius=(box[3] - box[1]) / 2, fill=(255, 255, 255, a))
+    return blur(layer, (box[3] - box[1]) * 0.18)
+
+
+def plaza_icon():
+    w = h = 800
+    im = photo_bg(OUT / "plaza_1.jpg", w, h, soften=7)
+    im.alpha_composite(veil((w, h), (90, 480, 710, 650), 200))
+    im.alpha_composite(arc((w, h), w / 2, h * 0.70, 230, 20, LIGHT_ARC))
+    im.alpha_composite(arc((w, h), w / 2, h * 0.70, 225, 7, [(255, 255, 255)]))
+    flare(im, w / 2 + 230 * math.cos(math.radians(-50)), h * 0.70 + 230 * math.sin(math.radians(-50)), 20)
+    text(im, "arc of light", ImageFont.truetype(FONT, 76), w / 2, h * 0.70, 6, fill=INK, glow=False)
+    im.convert("RGB").save(OUT / "icon_plaza_800.png")
+
+
+def plaza_banner():
+    w, h = 2560, 1440
+    im = photo_bg(OUT / "plaza_1.jpg", w, h, soften=14)
+    sx0, sy0 = (w - 1546) / 2, (h - 423) / 2
+    im.alpha_composite(veil((w, h), (sx0 + 260, sy0 + 175, sx0 + 1286, sy0 + 410), 205))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 300, 24, LIGHT_ARC))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 294, 8, [(255, 255, 255)]))
+    flare(im, w / 2 + 300 * math.cos(math.radians(-50)), sy0 + 330 + 300 * math.sin(math.radians(-50)), 26)
+    text(im, "arc of light", ImageFont.truetype(FONT, 120), w / 2, sy0 + 265, 12, fill=INK, glow=False)
+    text(im, "pop  ·  chill  ·  ballad  ·  bgm", ImageFont.truetype(FONT, 40), w / 2, sy0 + 372, 10, fill=(60, 64, 120, 235), glow=False)
+    im.convert("RGB").save(OUT / "banner_plaza_2560x1440.png")
+    chk = im.copy()
+    ImageDraw.Draw(chk).rectangle([sx0, sy0, sx0 + 1546, sy0 + 423], outline=(255, 80, 80, 255), width=4)
+    chk.convert("RGB").resize((1280, 720)).save(OUT / "banner_plaza_safe_area_check.png")
+
+
+if __name__ == "__main__":
+    plaza_icon()
+    plaza_banner()
