@@ -288,14 +288,17 @@ def photo_version(name, photo, soften_icon, soften_banner, dark=True):
     w, h = 2560, 1440
     im = photo_bg(OUT / photo, w, h, bright=1.0 if dark else 1.08, soften=soften_banner)
     sx0, sy0 = (w - 1546) / 2, (h - 423) / 2
-    im.alpha_composite(veil_c((w, h), (sx0 + 260, sy0 + 175, sx0 + 1286, sy0 + 410), 150 if dark else 205))
-    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 300, 24, LIGHT_ARC))
-    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 294, 8, [(255, 255, 255)]))
-    flare(im, w / 2 + 300 * math.cos(math.radians(-50)), sy0 + 330 + 300 * math.sin(math.radians(-50)), 26)
-    text(im, "arc of light", ImageFont.truetype(FONT, 120), w / 2, sy0 + 265, 12, fill=ink, glow=dark)
-    text(im, "pop  ·  chill  ·  ballad  ·  bgm", ImageFont.truetype(FONT, 40), w / 2, sy0 + 372, 10, fill=sub, glow=False)
+    # 弧・文字・きらめきを、どの画面でも見える中央の枠（1546×423）の内側に余白を取って収める
+    im.alpha_composite(veil_c((w, h), (sx0 + 330, sy0 + 230, sx0 + 1216, sy0 + 400), 150 if dark else 205))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 250, 210, 18, LIGHT_ARC))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 250, 205, 6, [(255, 255, 255)]))
+    flare(im, w / 2 + 210 * math.cos(math.radians(-50)), sy0 + 250 + 210 * math.sin(math.radians(-50)), 20)
+    text(im, "arc of light", ImageFont.truetype(FONT, 100), w / 2, sy0 + 300, 10, fill=ink, glow=dark)
+    text(im, "pop  ·  chill  ·  ballad  ·  bgm", ImageFont.truetype(FONT, 34), w / 2, sy0 + 375, 9, fill=sub, glow=False)
     im.convert("RGB").save(OUT / f"banner_{name}_2560x1440.png")
-    im.convert("RGB").resize((1280, 720)).save(OUT / f"preview_{name}.jpg")
+    chk = im.copy()
+    ImageDraw.Draw(chk).rectangle([sx0, sy0, sx0 + 1546, sy0 + 423], outline=(80, 170, 255, 255), width=4)
+    chk.convert("RGB").resize((1280, 720)).save(OUT / f"preview_{name}.jpg")
 
 
 def photos_all():
