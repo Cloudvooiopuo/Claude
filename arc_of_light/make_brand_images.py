@@ -298,7 +298,91 @@ def photo_version(name, photo, soften_icon, soften_banner, dark=True):
     im.convert("RGB").resize((1280, 720)).save(OUT / f"preview_{name}.jpg")
 
 
-if __name__ == "__main__":
+def photos_all():
     photo_version("records", "records_1.jpg", 4, 8)
     photo_version("live", "live_1.jpg", 3, 6)
     photo_version("neon", "neon_1.jpg", 14, 26)
+
+
+def cg_scene(w, h, night=True, seed=1, eq=0.12):
+    # 人のいない近未来の音楽ステージ風の絵をコードで描く：
+    # 奥へ伸びる光の床（グリッド）、奥の大きな光のアーチ、左右の光の柱、音の波（イコライザー）
+    rng = random.Random(seed)
+    if night:
+        top, mid, floor_c = (8, 10, 34), (60, 24, 96), (14, 10, 40)
+        neon1, neon2 = (90, 220, 255), (255, 110, 220)
+    else:
+        top, mid, floor_c = (150, 205, 255), (255, 225, 240), (235, 238, 255)
+        neon1, neon2 = (90, 170, 255), (255, 140, 200)
+    horizon = int(h * 0.62)
+    im = Image.new("RGBA", (w, h))
+    d = ImageDraw.Draw(im)
+    for y in range(h):
+        if y < horizon:
+            t = y / horizon
+            c = tuple(int(top[i] + (mid[i] - top[i]) * t ** 1.4) for i in range(3))
+        else:
+            c = floor_c
+        d.line([(0, y), (w, y)], fill=c + (255,))
+    glow = Image.new("RGBA", (w, h), neon1 + (0,))
+    g = ImageDraw.Draw(glow)
+    cx = w / 2
+    # 床のグリッド（奥に向かって線が集まる）
+    for k in range(-24, 25):
+        x_far = cx + k * w * 0.012
+        x_near = cx + k * w * 0.09
+        g.line([(x_far, horizon), (x_near, h)], fill=neon1 + (150,), width=max(1, w // 900))
+    for j in range(1, 18):
+        y = horizon + (h - horizon) * (j / 18) ** 2.2
+        g.line([(0, y), (w, y)], fill=neon2 + (130,), width=max(1, w // 900))
+    # 奥の大きな光のアーチ（重ねて奥行きを出す）
+    for n, r in enumerate([0.30, 0.25, 0.20]):
+        rr = w * r
+        g.arc([cx - rr, horizon - rr, cx + rr, horizon + rr], 180, 360,
+              fill=(neon2 if n % 2 else neon1) + (220 - n * 40,), width=max(2, w // 300))
+    # 左右の光の柱
+    for side in (-1, 1):
+        for i in range(5):
+            x = cx + side * w * (0.36 + i * 0.03)
+            top_y = horizon - h * (0.42 - i * 0.05)
+            g.line([(x, top_y), (x, horizon)], fill=neon1 + (200 - i * 25,), width=max(2, w // 500))
+    # 音の波（地平線の上のイコライザー）
+    bars = 64
+    for i in range(bars):
+        x = cx - w * 0.17 + i * (w * 0.34 / bars)
+        hh = h * eq * (0.25 + 0.75 * abs(math.sin(i * 0.37 + rng.random()))) * (1 - abs(i - bars / 2) / (bars / 2)) ** 0.6
+        g.line([(x, horizon - hh), (x, horizon)], fill=(255, 255, 255, 170), width=max(2, w // 700))
+    im.alpha_composite(blur(glow, w / 180))
+    im.alpha_composite(blur(glow, w / 900))
+    im.alpha_composite(glow)
+    # 地平線の光
+    hz = Image.new("RGBA", (w, h), (255, 255, 255, 0))
+    ImageDraw.Draw(hz).ellipse([cx - w * 0.45, horizon - h * 0.04, cx + w * 0.45, horizon + h * 0.04], fill=(255, 245, 255, 180))
+    im.alpha_composite(blur(hz, w / 60))
+    im.alpha_composite(sparkles((w, h), 160 if w > 1000 else 40, seed + 3, big=0, region=(0, 0, w, horizon)))
+    return im
+
+
+def cg_version(name, night=True):
+    ink = (255, 255, 255, 250) if night else INK
+    sub = (235, 232, 255, 235) if night else (60, 64, 120, 235)
+    w = h = 800
+    im = cg_scene(w, h, night)
+    text(im, "arc of light", ImageFont.truetype(FONT, 78), w / 2, h * 0.80, 6, fill=ink, glow=night)
+    flare(im, w / 2 + w * 0.30 * math.cos(math.radians(-50)), h * 0.62 + w * 0.30 * math.sin(math.radians(-50)), 20)
+    im.convert("RGB").save(OUT / f"icon_{name}_800.png")
+    w, h = 2560, 1440
+    im = cg_scene(w, h, night, eq=0.055)
+    sx0, sy0 = (w - 1546) / 2, (h - 423) / 2
+    text(im, "arc of light", ImageFont.truetype(FONT, 120), w / 2, sy0 + 175, 12, fill=ink, glow=night)
+    text(im, "pop  ·  chill  ·  ballad  ·  bgm", ImageFont.truetype(FONT, 40), w / 2, sy0 + 265, 10, fill=sub, glow=night)
+    flare(im, w / 2 + w * 0.30 * math.cos(math.radians(-50)), h * 0.62 + w * 0.30 * math.sin(math.radians(-50)), 30)
+    im.convert("RGB").save(OUT / f"banner_{name}_2560x1440.png")
+    chk = im.copy()
+    ImageDraw.Draw(chk).rectangle([sx0, sy0, sx0 + 1546, sy0 + 423], outline=(255, 80, 80, 255), width=4)
+    chk.convert("RGB").resize((1280, 720)).save(OUT / f"preview_{name}.jpg")
+
+
+if __name__ == "__main__":
+    cg_version("cg_night", True)
+    cg_version("cg_day", False)
