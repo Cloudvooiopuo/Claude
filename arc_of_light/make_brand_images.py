@@ -210,14 +210,29 @@ def all_old():
     print("done")
 
 
-def photo_bg(path, w, h, bright=1.08, soften=0):
+def photo_bg(path, w, h, bright=1.08, soften=0, yshift=0):
     # 写真を枠いっぱいに切り抜き、少し明るく、やわらかくする
     from PIL import ImageEnhance
     p = Image.open(path).convert("RGB")
     s = max(w / p.width, h / p.height)
     p = p.resize((int(p.width * s) + 1, int(p.height * s) + 1), Image.LANCZOS)
     x, y = (p.width - w) // 2, (p.height - h) // 2
-    p = p.crop((x, y, x + w, y + h))
+    if yshift:
+        # 写真を下へずらす（人の頭などを中央の枠に入れる）。上にできるすき間は、
+        # 写真の上の方を引きのばしてぼかした物で埋め、つなぎ目はぼかしてなじませる
+        canvas = p.crop((x, 0, x + w, max(1, y + h - yshift))).resize((w, h)).filter(ImageFilter.GaussianBlur(40))
+        canvas = ImageEnhance.Brightness(canvas).enhance(0.8)
+        top = y - yshift
+        part = p.crop((x, max(0, top), x + w, y + h - yshift))
+        mask = Image.new("L", part.size, 255)
+        feather = 160
+        md = ImageDraw.Draw(mask)
+        for i in range(feather):
+            md.line([(0, i), (part.width, i)], fill=int(255 * i / feather))
+        canvas.paste(part, (0, max(0, -top)), mask)
+        p = canvas
+    else:
+        p = p.crop((x, y, x + w, y + h))
     p = ImageEnhance.Brightness(p).enhance(bright)
     p = ImageEnhance.Color(p).enhance(1.1)
     if soften:
@@ -265,7 +280,7 @@ def plaza():
     plaza_banner()
 
 
-def photo_version(name, photo, soften_icon, soften_banner, dark=True):
+def photo_version(name, photo, soften_icon, soften_banner, dark=True, yshift=0):
     # 写真の版（レコード店・ライブ・ネオンの街など）。暗い写真は白い文字、明るい写真は紺の文字
     ink = (255, 255, 255, 250) if dark else INK
     sub = (235, 232, 255, 235) if dark else (60, 64, 120, 235)
@@ -286,7 +301,7 @@ def photo_version(name, photo, soften_icon, soften_banner, dark=True):
     im.convert("RGB").save(OUT / f"icon_{name}_800.png")
 
     w, h = 2560, 1440
-    im = photo_bg(OUT / photo, w, h, bright=1.0 if dark else 1.08, soften=soften_banner)
+    im = photo_bg(OUT / photo, w, h, bright=1.0 if dark else 1.08, soften=soften_banner, yshift=yshift)
     sx0, sy0 = (w - 1546) / 2, (h - 423) / 2
     # 弧・文字・きらめきを、どの画面でも見える中央の枠（1546×423）の内側に余白を取って収める
     im.alpha_composite(veil_c((w, h), (sx0 + 330, sy0 + 230, sx0 + 1216, sy0 + 400), 150 if dark else 205))
@@ -303,7 +318,7 @@ def photo_version(name, photo, soften_icon, soften_banner, dark=True):
 
 def photos_all():
     photo_version("records", "records_1.jpg", 4, 8)
-    photo_version("live", "live_1.jpg", 3, 6)
+    photo_version("live", "live_1.jpg", 3, 6, yshift=330)
     photo_version("neon", "neon_1.jpg", 14, 26)
 
 
