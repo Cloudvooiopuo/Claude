@@ -202,7 +202,7 @@ def banner():
     chk.convert("RGB").resize((1280, 720)).save(OUT / "banner_safe_area_check.png")
 
 
-if __name__ == "__main__":
+def all_old():
     icon()
     banner()
     icon_day()
@@ -260,6 +260,45 @@ def plaza_banner():
     chk.convert("RGB").resize((1280, 720)).save(OUT / "banner_plaza_safe_area_check.png")
 
 
-if __name__ == "__main__":
+def plaza():
     plaza_icon()
     plaza_banner()
+
+
+def photo_version(name, photo, soften_icon, soften_banner, dark=True):
+    # 写真の版（レコード店・ライブ・ネオンの街など）。暗い写真は白い文字、明るい写真は紺の文字
+    ink = (255, 255, 255, 250) if dark else INK
+    sub = (235, 232, 255, 235) if dark else (60, 64, 120, 235)
+    vcol = (10, 12, 30) if dark else (255, 255, 255)
+
+    def veil_c(size, box, a):
+        layer = Image.new("RGBA", size, vcol + (0,))
+        ImageDraw.Draw(layer).rounded_rectangle(box, radius=(box[3] - box[1]) / 2, fill=vcol + (a,))
+        return blur(layer, (box[3] - box[1]) * 0.18)
+
+    w = h = 800
+    im = photo_bg(OUT / photo, w, h, bright=1.0 if dark else 1.08, soften=soften_icon)
+    im.alpha_composite(veil_c((w, h), (90, 480, 710, 650), 150 if dark else 200))
+    im.alpha_composite(arc((w, h), w / 2, h * 0.70, 230, 20, LIGHT_ARC))
+    im.alpha_composite(arc((w, h), w / 2, h * 0.70, 225, 7, [(255, 255, 255)]))
+    flare(im, w / 2 + 230 * math.cos(math.radians(-50)), h * 0.70 + 230 * math.sin(math.radians(-50)), 20)
+    text(im, "arc of light", ImageFont.truetype(FONT, 76), w / 2, h * 0.70, 6, fill=ink, glow=dark)
+    im.convert("RGB").save(OUT / f"icon_{name}_800.png")
+
+    w, h = 2560, 1440
+    im = photo_bg(OUT / photo, w, h, bright=1.0 if dark else 1.08, soften=soften_banner)
+    sx0, sy0 = (w - 1546) / 2, (h - 423) / 2
+    im.alpha_composite(veil_c((w, h), (sx0 + 260, sy0 + 175, sx0 + 1286, sy0 + 410), 150 if dark else 205))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 300, 24, LIGHT_ARC))
+    im.alpha_composite(arc((w, h), w / 2, sy0 + 330, 294, 8, [(255, 255, 255)]))
+    flare(im, w / 2 + 300 * math.cos(math.radians(-50)), sy0 + 330 + 300 * math.sin(math.radians(-50)), 26)
+    text(im, "arc of light", ImageFont.truetype(FONT, 120), w / 2, sy0 + 265, 12, fill=ink, glow=dark)
+    text(im, "pop  ·  chill  ·  ballad  ·  bgm", ImageFont.truetype(FONT, 40), w / 2, sy0 + 372, 10, fill=sub, glow=False)
+    im.convert("RGB").save(OUT / f"banner_{name}_2560x1440.png")
+    im.convert("RGB").resize((1280, 720)).save(OUT / f"preview_{name}.jpg")
+
+
+if __name__ == "__main__":
+    photo_version("records", "records_1.jpg", 4, 8)
+    photo_version("live", "live_1.jpg", 3, 6)
+    photo_version("neon", "neon_1.jpg", 14, 26)
