@@ -101,7 +101,8 @@ def main(q, out_dir, n=8):
         credits[fn] = r
         got += 1
         print(fn, r["license"], r["title"], flush=True)
-    cred_path.write_text(json.dumps(credits, ensure_ascii=False, indent=1))
+        # 途中で止まっても --take できるように、1枚ごとに書く
+        cred_path.write_text(json.dumps(credits, ensure_ascii=False, indent=1))
 
 
 def take(cand, dest):
