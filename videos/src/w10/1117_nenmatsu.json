@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-17",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#457B9D",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "11月のうちに",
+    "決めておくこと"
+  ],
+  "sub": "暮らし｜年末の準備リスト",
+  "items": [
+    {
+      "rank": 3,
+      "label": "その1",
+      "name": "年賀状を出すか",
+      "note": "出す人を書き出す"
+    },
+    {
+      "rank": 2,
+      "label": "その2",
+      "name": "帰省・旅行の予約",
+      "note": "早いほど安い"
+    },
+    {
+      "rank": 1,
+      "label": "その3",
+      "name": "大掃除の場所",
+      "note": "1日1か所に分ける"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1107_library_hook.jpg",
+    "items": {
+      "3": "photos/w6/1104_pens_1.jpg",
+      "2": "photos/w8/1024_daytrip_1.jpg",
+      "1": "photos/w6/1101_osouji_hook.jpg"
+    },
+    "cta": "photos/w6/1104_pens_hook.jpg"
+  },
+  "slot": 67,
+  "say": {
+    "hook": "11月のうちに、決めておくこと。",
+    "items": {
+      "3": "その1。年賀状を出すか、決める。",
+      "2": "その2。帰省や旅行の予約をする。",
+      "1": "その3。大掃除の場所を、1日1か所に分ける。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

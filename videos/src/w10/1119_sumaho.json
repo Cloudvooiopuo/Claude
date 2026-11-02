@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-19",
+  "form": "video",
+  "kind": "商品紹介",
+  "accent": "#6A994E",
+  "pr": true,
+  "photo_note": true,
+  "hook": [
+    "セールの前に",
+    "スマホまわり"
+  ],
+  "sub": "商品紹介｜見直すコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "充電器は小さく速く",
+      "note": "USB-Cの20Wが目安"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "外ではモバイル電池",
+      "note": "10000mAhで約2回"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "イヤホンは使う場面で",
+      "note": "通勤ならノイキャン"
+    }
+  ],
+  "cta": [
+    "使う物は",
+    "プロフィールのリンクから"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w8/1030_desk_cable_hook.jpg",
+    "items": {
+      "3": "photos/w8/1025_cable_hook.jpg",
+      "2": "photos/w8/1025_cable_1.jpg",
+      "1": "photos/w8/1025_cable_3.jpg"
+    },
+    "cta": "photos/w8/1030_desk_cable_3.jpg"
+  },
+  "slot": 69,
+  "say": {
+    "hook": "セールの前に、スマホまわり。",
+    "items": {
+      "3": "コツ1。充電器は、小さくて速いものに。",
+      "2": "コツ2。外では、モバイルバッテリーを1つ。",
+      "1": "コツ3。イヤホンは、使う場面で選ぶ。"
+    },
+    "cta": "使う物は、プロフィールのリンクから。"
+  }
+}
