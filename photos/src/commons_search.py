@@ -109,7 +109,17 @@ def take(cand, dest):
     """候補の中から使う1枚を大きい版で落とし、リポジトリの photos/credits.json に出典を足す"""
     cand, dest = Path(cand), Path(dest)
     r = json.loads((cand.parent / "credits.json").read_text())[cand.name]
-    im = Image.open(io.BytesIO(get(thumb(r["url"], r["w"])))).convert("RGB")
+    # 決まった幅でも「robot policy」の 429 を返すことがあるので、小さい幅へ順に落とす
+    for size in (None, 1280, 960):
+        if size and size >= r["w"]:
+            continue
+        try:
+            data = get(thumb(r["url"], r["w"], size), tries=2)
+            break
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or size == 960:
+                raise
+    im = Image.open(io.BytesIO(data)).convert("RGB")
     im.thumbnail((1920, 1920))
     dest.parent.mkdir(parents=True, exist_ok=True)
     im.save(dest, quality=90)
