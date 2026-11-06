@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-18",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#B5838D",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "手と唇が",
+    "カサカサ"
+  ],
+  "sub": "暮らし｜乾燥する季節のケア3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "洗ったらすぐ塗る",
+      "note": "水気をふいてから"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "寝る前は多めに",
+      "note": "綿の手袋をしても"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "唇はこすらない",
+      "note": "なめるのもやめる"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w8/1022_dry_2.jpg",
+    "items": {
+      "3": "photos/w8/1022_dry_1.jpg",
+      "2": "photos/w8/1022_dry_cta.jpg",
+      "1": "photos/w8/1022_dry_hook.jpg"
+    },
+    "cta": "photos/w6/1108_heating_cta.jpg"
+  },
+  "slot": 68,
+  "say": {
+    "hook": "手と唇が、カサカサ。",
+    "items": {
+      "3": "コツ1。手を洗ったら、すぐ塗る。",
+      "2": "コツ2。寝る前は、多めに塗る。",
+      "1": "コツ3。唇は、こすらない。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

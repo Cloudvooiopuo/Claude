@@ -1,0 +1,10 @@
+{"date":"2026-10-15","form":"video","kind":"自己紹介","accent":"#B5838D","pr":false,"photo_note":false,
+"hook":["はじめまして","カフェと旅と","売れ筋メモです"],
+"sub":"このアカウントについて",
+"items":[{"rank":3,"label":"その1","name":"Amazon・楽天の売れ筋をまとめます","note":"今売れている物がすぐ分かる"},
+{"rank":2,"label":"その2","name":"商品紹介には #PR を付けます","note":"広告だと分かるように"},
+{"rank":1,"label":"その3","name":"保存して買い物の前に見返してね","note":"フォローもうれしいです"}],
+"cta":["フォローして","次の売れ筋も見てね"],"foot":"",
+"photos":{"hook":"photos/w8/1021_cafe_hook.jpg","items":{"3":"photos/w8/1028_rakuten_point_hook.jpg","2":"photos/w8/1017_packing_hook.jpg","1":"photos/w8/1029_night_hook.jpg"},"cta":"photos/w8/1021_cafe_1.jpg"},
+"slot":47,
+"say":{"hook":"はじめまして。カフェと旅と、売れ筋メモです。","items":{"3":"アマゾンと楽天で、今売れている物をまとめます。","2":"商品を紹介する投稿には、はじめにピーアールを付けています。","1":"保存して、買い物の前に見返してね。"},"cta":"フォローして、次の売れ筋も見てね。"}}
