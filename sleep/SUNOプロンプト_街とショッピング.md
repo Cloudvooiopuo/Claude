@@ -40,3 +40,11 @@ Instrumental をオンにして Style of Music に貼る。説明欄に「Suno�
 3. mellow jazz guitar, clean tone, soft bass and brushes, evening downtown walk, smooth, 75 bpm, instrumental
 4. lo-fi guitar chillhop, warm electric guitar licks, vinyl texture, soft drums, after-shopping rest, cozy, 72 bpm, instrumental
 5. gentle classical guitar, spanish style, soft and slow, old town market plaza, peaceful afternoon, instrumental
+
+## F. ギター（新規・11/11）「朝の街と、アコースティックギター」に足す用
+1. soft acoustic guitar fingerstyle, gentle arpeggios, warm morning sunlight, quiet shopping street before shops open, calm, 80 bpm, instrumental
+2. warm acoustic guitar duet, soft harmonics, light shaker, strolling past a bakery and flower shop, peaceful and bright, 85 bpm, instrumental
+3. mellow fingerstyle guitar, soft upright bass, slow and airy, sunny window seat in a small café, relaxed, 75 bpm, instrumental
+4. gentle acoustic guitar with soft glockenspiel, light and cheerful, morning breeze on a tree-lined street, calm, 90 bpm, instrumental
+5. slow fingerpicked acoustic guitar, warm reverb, soft and dreamy, late morning sunlight through shop windows, peaceful, 70 bpm, instrumental
+6. soft acoustic guitar and light hand percussion, folk-pop feel, weekend morning market, gentle and happy, 88 bpm, instrumental
