@@ -48,3 +48,11 @@ Instrumental をオンにして Style of Music に貼る。説明欄に「Suno�
 4. gentle acoustic guitar with soft glockenspiel, light and cheerful, morning breeze on a tree-lined street, calm, 90 bpm, instrumental
 5. slow fingerpicked acoustic guitar, warm reverb, soft and dreamy, late morning sunlight through shop windows, peaceful, 70 bpm, instrumental
 6. soft acoustic guitar and light hand percussion, folk-pop feel, weekend morning market, gentle and happy, 88 bpm, instrumental
+
+## G. ジャズ（新規・11/11）「冬の夜と、やさしいジャズ」1本分
+1. slow jazz piano trio, soft brushes, warm upright bass, quiet winter night, cozy and peaceful, 65 bpm, instrumental
+2. gentle jazz ballad, solo piano with soft vibraphone, snow falling outside the window, calm and tender, 60 bpm, instrumental
+3. mellow jazz piano and soft muted trumpet, slow swing, warm lamp light in a small apartment, relaxing, 70 bpm, instrumental
+4. soft jazz guitar and piano duo, light brushes, late night city after snow, quiet and dreamy, 68 bpm, instrumental
+5. smooth jazz lounge, gentle tenor saxophone, soft piano chords, fireplace and hot cocoa, cozy, 72 bpm, instrumental
+6. slow jazz waltz, soft piano and upright bass, gentle and sleepy, winter night before bed, peaceful, 62 bpm, instrumental
