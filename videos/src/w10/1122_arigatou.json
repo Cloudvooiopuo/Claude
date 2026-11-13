@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-22",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#E76F51",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "ありがとう",
+    "伝えてる？"
+  ],
+  "sub": "暮らし｜小さく伝えるコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "理由を一言そえる",
+      "note": "「〜してくれて」"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "好きなおやつを1つ",
+      "note": "言葉が苦手でも"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "メモを置いておく",
+      "note": "朝に見つかると嬉しい"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/sleep/sunflower_2.jpg",
+    "items": {
+      "3": "photos/sleep/sunny_blossom.jpg",
+      "2": "photos/w8/1021_cafe_1.jpg",
+      "1": "photos/sleep/sunflower_3.jpg"
+    },
+    "cta": "photos/sleep/sunflower_1.jpg"
+  },
+  "slot": 72,
+  "say": {
+    "hook": "ありがとう、伝えてる？。",
+    "items": {
+      "3": "コツ1。理由を一言そえる。",
+      "2": "コツ2。好きなおやつを1つ渡す。",
+      "1": "コツ3。短いメモを置いておく。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}
