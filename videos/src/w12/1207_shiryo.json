@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-07",
+  "form": "video",
+  "kind": "仕事",
+  "accent": "#2A9D8F",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "資料づくり",
+    "何から始める？"
+  ],
+  "sub": "仕事｜最初の10分でやること3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "その1",
+      "name": "1枚目に結論",
+      "note": "何を伝えたいか"
+    },
+    {
+      "rank": 2,
+      "label": "その2",
+      "name": "見出しだけ並べる",
+      "note": "中身はあとで"
+    },
+    {
+      "rank": 1,
+      "label": "その3",
+      "name": "図は最後に",
+      "note": "文が決まってから"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/office/desk_flowers_1.jpg",
+    "items": {
+      "3": "photos/w6/1107_library_2.jpg",
+      "2": "photos/w6/1104_pens_hook.jpg",
+      "1": "photos/w8/1016_bgm_2.jpg"
+    },
+    "cta": "photos/office/desk_top_1.jpg"
+  },
+  "slot": 87,
+  "say": {
+    "hook": "資料づくり、何から始める？。",
+    "items": {
+      "3": "その1。1枚目に、結論を書く。",
+      "2": "その2。見出しだけ、先に並べる。",
+      "1": "その3。図は、最後に作る。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

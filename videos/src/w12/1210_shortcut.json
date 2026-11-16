@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-10",
+  "form": "video",
+  "kind": "仕事",
+  "accent": "#6A994E",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "同じ作業",
+    "くり返してない？"
+  ],
+  "sub": "仕事｜覚えたいショートカット3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "その1",
+      "name": "Ctrl+C / Ctrl+V",
+      "note": "Macは⌘+C / ⌘+V"
+    },
+    {
+      "rank": 2,
+      "label": "その2",
+      "name": "Ctrl+Z",
+      "note": "まちがえたら元に戻す"
+    },
+    {
+      "rank": 1,
+      "label": "その3",
+      "name": "Alt+Tab",
+      "note": "Macは⌘+Tab"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w8/1025_cable_hook.jpg",
+    "items": {
+      "3": "photos/w8/1030_desk_cable_hook.jpg",
+      "2": "photos/w8/1030_desk_cable_2.jpg",
+      "1": "photos/w8/1025_cable_2.jpg"
+    },
+    "cta": "photos/office/desk_top_1.jpg"
+  },
+  "slot": 90,
+  "say": {
+    "hook": "同じ作業、くり返してない？。",
+    "items": {
+      "3": "その1。コピーと貼り付け。",
+      "2": "その2。まちがえたら、元に戻す。",
+      "1": "その3。画面を、すばやく切り替える。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

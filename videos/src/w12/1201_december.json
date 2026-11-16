@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-01",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#457B9D",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "12月",
+    "気づいたら終わってる"
+  ],
+  "sub": "暮らし｜今週決めておくこと3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "その1",
+      "name": "年賀状を出すか",
+      "note": "出すなら人数も"
+    },
+    {
+      "rank": 2,
+      "label": "その2",
+      "name": "大掃除の場所",
+      "note": "週に1か所ずつ"
+    },
+    {
+      "rank": 1,
+      "label": "その3",
+      "name": "年末の予約",
+      "note": "帰省・美容院・お店"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1107_library_hook.jpg",
+    "items": {
+      "3": "photos/w6/1101_osouji_1.jpg",
+      "2": "photos/w8/1017_packing_1.jpg",
+      "1": "photos/w8/1017_packing_2.jpg"
+    },
+    "cta": "photos/w6/1107_library_cta.jpg"
+  },
+  "slot": 81,
+  "say": {
+    "hook": "12月、気づいたら終わってる。",
+    "items": {
+      "3": "その1。年賀状を出すか、決める。",
+      "2": "その2。大掃除の場所を、週に1か所ずつ割り振る。",
+      "1": "その3。年末の予約を、確かめる。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}
