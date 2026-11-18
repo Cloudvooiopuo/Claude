@@ -56,3 +56,13 @@ Instrumental をオンにして Style of Music に貼る。説明欄に「Suno�
 4. soft jazz guitar and piano duo, light brushes, late night city after snow, quiet and dreamy, 68 bpm, instrumental
 5. smooth jazz lounge, gentle tenor saxophone, soft piano chords, fireplace and hot cocoa, cozy, 72 bpm, instrumental
 6. slow jazz waltz, soft piano and upright bass, gentle and sleepy, winter night before bed, peaceful, 62 bpm, instrumental
+
+## H. 快眠ピアノ（新規・11/18）「星空と、快眠ピアノ」の続き用（よく見られた型）
+1. slow solo piano lullaby, soft felt piano, starry night sky, calm and sleepy, very gentle, 55 bpm, instrumental
+2. ambient piano with soft pads, quiet night under the stars, deep relaxation, slow and spacious, 50 bpm, instrumental
+3. gentle piano melody with light reverb, peaceful midnight, stress relief, warm and tender, 58 bpm, instrumental
+4. minimal soft piano, slow arpeggios, moonlight through the window, dreamy and calm, 52 bpm, instrumental
+5. soothing piano and soft strings, falling asleep under a clear winter sky, warm and quiet, 56 bpm, instrumental
+6. slow healing piano, simple melody, distant twinkling stars, sleepy and peaceful, fade into silence, 48 bpm, instrumental
+
+もっと眠くしたい時：「no drums, no percussion, soft dynamics」を足す。
