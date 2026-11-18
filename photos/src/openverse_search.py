@@ -10,6 +10,8 @@ import io
 import json
 import re
 import sys
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -20,8 +22,15 @@ API = "https://api.openverse.org/v1/images/"
 UA = "SoranoneBGM/1.0 (CC0 photo search)"
 
 
-def get(url):
-    return urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=60).read()
+def get(url, tries=4):
+    """Openverse はときどき 504 を返すので、少し待って数回やり直す"""
+    for i in range(tries):
+        try:
+            return urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=60).read()
+        except urllib.error.HTTPError as e:
+            if e.code not in (502, 503, 504) or i == tries - 1:
+                raise
+            time.sleep(10)
 
 
 def main(q, out_dir, n=8):
@@ -30,12 +39,12 @@ def main(q, out_dir, n=8):
     cp = out / "credits.json"
     credits = json.loads(cp.read_text()) if cp.exists() else {}
     url = API + "?" + urllib.parse.urlencode({"q": q, "license": "cc0,pdm", "source": "flickr",
-                                               "size": "large", "page_size": 20, "mature": "false"})
+                                               "page_size": 20, "mature": "false"})
     got = 0
     for r in json.loads(get(url))["results"]:
         if got >= int(n):
             break
-        if (r.get("width") or 0) < 1600 or r.get("license") not in ("cc0", "pdm"):
+        if (r.get("width") or 0) < 1000 or r.get("license") not in ("cc0", "pdm"):
             continue
         fn = f"{re.sub(r'[^a-z0-9]+', '_', q.lower()).strip('_')}_{got:02d}.jpg"
         try:
