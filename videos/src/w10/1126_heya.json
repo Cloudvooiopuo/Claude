@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-26",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#6A994E",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "暖房代をかけずに",
+    "部屋を暖かく"
+  ],
+  "sub": "暮らし｜冬じたくのコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "カーテンは床まで",
+      "note": "窓の冷気を止める"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "床にラグを敷く",
+      "note": "足元から暖かい"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "サーキュレーター",
+      "note": "上の暖気を下へ"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1108_heating_3.jpg",
+    "items": {
+      "3": "photos/w6/1108_heating_1.jpg",
+      "2": "photos/w6/1108_heating_2.jpg",
+      "1": "photos/sleep/fire_5.jpg"
+    },
+    "cta": "photos/sleep/fire_4.jpg"
+  },
+  "slot": 76,
+  "say": {
+    "hook": "暖房代をかけずに、部屋を暖かく。",
+    "items": {
+      "3": "コツ1。カーテンは、床まで届くものに。",
+      "2": "コツ2。床に、ラグを1枚敷く。",
+      "1": "コツ3。サーキュレーターで、暖かい空気を回す。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

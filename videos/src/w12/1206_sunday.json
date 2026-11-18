@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-06",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#E76F51",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "日曜の夜",
+    "月曜がゆううつ"
+  ],
+  "sub": "暮らし｜来週をラクにする3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "その1",
+      "name": "月曜の服を決める",
+      "note": "ハンガーにかけておく"
+    },
+    {
+      "rank": 2,
+      "label": "その2",
+      "name": "持ち物を玄関に",
+      "note": "忘れ物がなくなる"
+    },
+    {
+      "rank": 1,
+      "label": "その3",
+      "name": "朝ごはんを決める",
+      "note": "パンかおにぎりか"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w8/1029_night_1.jpg",
+    "items": {
+      "3": "photos/w8/1017_packing_3.jpg",
+      "2": "photos/w8/1017_packing_hook.jpg",
+      "1": "photos/w6/1105_morning_1.jpg"
+    },
+    "cta": "photos/w8/1029_night_2.jpg"
+  },
+  "slot": 86,
+  "say": {
+    "hook": "日曜の夜、月曜がゆううつ。",
+    "items": {
+      "3": "その1。月曜の服を、決めておく。",
+      "2": "その2。持ち物を、玄関に置く。",
+      "1": "その3。朝ごはんを、決めておく。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

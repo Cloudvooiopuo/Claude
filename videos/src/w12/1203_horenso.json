@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-03",
+  "form": "video",
+  "kind": "仕事",
+  "accent": "#6A994E",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "報告が長いと",
+    "言われる人へ"
+  ],
+  "sub": "仕事｜3行で伝える型",
+  "items": [
+    {
+      "rank": 3,
+      "label": "1行目",
+      "name": "結論",
+      "note": "「A社の件、OKでした」"
+    },
+    {
+      "rank": 2,
+      "label": "2行目",
+      "name": "理由",
+      "note": "「予算内だったためです」"
+    },
+    {
+      "rank": 1,
+      "label": "3行目",
+      "name": "次にやること",
+      "note": "「明日、見積もりを送ります」"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/office/desk_top_1.jpg",
+    "items": {
+      "3": "photos/office/notebook_latte_1.jpg",
+      "2": "photos/office/desk_plants_1.jpg",
+      "1": "photos/office/meeting_room_1.jpg"
+    },
+    "cta": "photos/w8/1016_bgm_hook.jpg"
+  },
+  "slot": 83,
+  "say": {
+    "hook": "報告が長いと、言われる人へ。",
+    "items": {
+      "3": "1行目は、結論。",
+      "2": "2行目は、理由。",
+      "1": "3行目は、次にやること。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

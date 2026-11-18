@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-28",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#5E548E",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "寒くて",
+    "お風呂がおっくう"
+  ],
+  "sub": "暮らし｜湯船につかる前の3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "脱衣所を先に温める",
+      "note": "ヒーターを5分前に"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "お湯は40℃くらい",
+      "note": "熱すぎると疲れる"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "上がったらすぐ靴下",
+      "note": "足先から冷えない"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1111_onsen_hook.jpg",
+    "items": {
+      "3": "photos/w6/1108_heating_1.jpg",
+      "2": "photos/w6/1111_onsen_2.jpg",
+      "1": "photos/w6/1105_morning_3.jpg"
+    },
+    "cta": "photos/w6/1111_onsen_cta.jpg"
+  },
+  "slot": 78,
+  "say": {
+    "hook": "寒くて、お風呂がおっくう。",
+    "items": {
+      "3": "コツ1。脱衣所を、先に温めておく。",
+      "2": "コツ2。お湯は、40度くらいに。",
+      "1": "コツ3。上がったら、すぐ靴下をはく。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

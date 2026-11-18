@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-11",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#D4A373",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "週末の前に",
+    "冷蔵庫がごちゃごちゃ"
+  ],
+  "sub": "暮らし｜残り物で作る3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "その1",
+      "name": "まとめて炒める",
+      "note": "野菜も肉も一緒に"
+    },
+    {
+      "rank": 2,
+      "label": "その2",
+      "name": "卵でとじる",
+      "note": "ちゃんと一品になる"
+    },
+    {
+      "rank": 1,
+      "label": "その3",
+      "name": "迷ったらスープ",
+      "note": "何でも入れていい"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1112_nabe_3.jpg",
+    "items": {
+      "3": "photos/w6/1112_nabe_1.jpg",
+      "2": "photos/w7/1014_mealprep_hook.jpg",
+      "1": "photos/w6/1112_nabe_cta.jpg"
+    },
+    "cta": "photos/w6/1112_nabe_hook.jpg"
+  },
+  "slot": 91,
+  "say": {
+    "hook": "週末の前に、冷蔵庫がごちゃごちゃ。",
+    "items": {
+      "3": "その1。残った野菜を、まとめて炒める。",
+      "2": "その2。卵でとじる。",
+      "1": "その3。迷ったら、スープにする。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

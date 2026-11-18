@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-08",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#457B9D",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "換気扇",
+    "見て見ぬふり？"
+  ],
+  "sub": "暮らし｜つけ置き掃除のコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "お湯につけ置き",
+      "note": "40〜50℃のお湯で"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "重曹をふりかける",
+      "note": "30分待つだけ"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "よく乾かす",
+      "note": "サビを防ぐ"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1101_osouji_hook.jpg",
+    "items": {
+      "3": "photos/w6/1101_osouji_3.jpg",
+      "2": "photos/w6/1101_osouji_2.jpg",
+      "1": "photos/w6/1101_osouji_cta.jpg"
+    },
+    "cta": "photos/w6/1101_osouji_1.jpg"
+  },
+  "slot": 88,
+  "say": {
+    "hook": "換気扇、見て見ぬふり？。",
+    "items": {
+      "3": "コツ1。部品を、お湯につけ置きする。",
+      "2": "コツ2。重曹をふりかけて、30分待つ。",
+      "1": "コツ3。よく乾かしてから、戻す。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

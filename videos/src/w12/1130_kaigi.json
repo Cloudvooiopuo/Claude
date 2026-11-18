@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-30",
+  "form": "video",
+  "kind": "仕事",
+  "accent": "#2A9D8F",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "会議で",
+    "最初のひと言に困る"
+  ],
+  "sub": "仕事｜話しやすくなる言い方3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "「結論から言うと」",
+      "note": "先に答えを言う"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "「1つだけ確認です」",
+      "note": "質問を短くできる"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "「まとめると」",
+      "note": "最後に一言で閉じる"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/office/meeting_room_1.jpg",
+    "items": {
+      "3": "photos/office/desk_top_1.jpg",
+      "2": "photos/w6/1104_pens_2.jpg",
+      "1": "photos/w8/1016_bgm_1.jpg"
+    },
+    "cta": "photos/office/desk_plants_1.jpg"
+  },
+  "slot": 80,
+  "say": {
+    "hook": "会議で、最初のひと言に困る。",
+    "items": {
+      "3": "コツ1。結論から言うと、で始める。",
+      "2": "コツ2。1つだけ確認です、と聞く。",
+      "1": "コツ3。まとめると、で終わる。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

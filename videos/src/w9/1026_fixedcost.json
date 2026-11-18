@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-26",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#D4A373",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "毎月",
+    "なんとなく",
+    "お金が出ていく"
+  ],
+  "sub": "暮らし｜固定費の見直し3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "まずスマホ代",
+      "note": "格安プランで変わることも"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "次にサブスク",
+      "note": "使ってない物はない？"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "最後に会員サービス",
+      "note": "年会費も月に直すと見える"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w8/1026_fixedcost_hook.jpg",
+    "items": {
+      "3": "photos/w8/1026_fixedcost_3.jpg",
+      "2": "photos/w8/1026_fixedcost_2.jpg",
+      "1": "photos/w8/1026_fixedcost_1.jpg"
+    },
+    "cta": "photos/w8/1026_fixedcost_cta.jpg"
+  },
+  "slot": 54,
+  "say": {
+    "hook": "毎月、なんとなく、お金が出ていく。",
+    "items": {
+      "3": "コツ1。まずは、スマホ代。",
+      "2": "コツ2。次に、サブスク。",
+      "1": "コツ3。最後に、会員サービスの年会費。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}
