@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-16",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#2A9D8F",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "冷え性さん",
+    "まずここから"
+  ],
+  "sub": "暮らし｜3つの首を温めるコツ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "首はストールで",
+      "note": "室内でも巻いていい"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "手首まで隠す",
+      "note": "袖の長い服を選ぶ"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "足首は重ね履き",
+      "note": "レッグウォーマーも"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/sleep/snow_1.jpg",
+    "items": {
+      "3": "photos/w6/1108_heating_hook.jpg",
+      "2": "photos/sleep/fire_3.jpg",
+      "1": "photos/sleep/snow_3.jpg"
+    },
+    "cta": "photos/sleep/snownight_2.jpg"
+  },
+  "slot": 66,
+  "say": {
+    "hook": "冷え性さん、まずここから。",
+    "items": {
+      "3": "コツ1。首は、ストールで温める。",
+      "2": "コツ2。手首まで、袖で隠す。",
+      "1": "コツ3。足首は、靴下の重ね履き。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

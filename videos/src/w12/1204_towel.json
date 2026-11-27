@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-04",
+  "form": "video",
+  "kind": "商品紹介",
+  "accent": "#D4A373",
+  "pr": true,
+  "photo_note": true,
+  "hook": [
+    "朝",
+    "のどがカラカラ"
+  ],
+  "sub": "商品紹介｜寝室をうるおす3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "濡れタオルを干す",
+      "note": "ハンガーにかけるだけ"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "枕元に水を1杯",
+      "note": "起きたらひと口"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "首元を冷やさない",
+      "note": "タオルを巻いても"
+    }
+  ],
+  "cta": [
+    "使う物は",
+    "プロフィールのリンクから"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w8/1022_dry_hook.jpg",
+    "items": {
+      "3": "photos/w8/1018_heyaboshi_1.jpg",
+      "2": "photos/w8/1022_dry_2.jpg",
+      "1": "photos/w8/1022_dry_1.jpg"
+    },
+    "cta": "photos/w8/1018_heyaboshi_hook.jpg"
+  },
+  "slot": 84,
+  "say": {
+    "hook": "朝、のどがカラカラ。",
+    "items": {
+      "3": "コツ1。濡れタオルを、1枚干す。",
+      "2": "コツ2。枕元に、水を1杯。",
+      "1": "コツ3。首元を、冷やさない。"
+    },
+    "cta": "使う物は、プロフィールのリンクから。"
+  }
+}

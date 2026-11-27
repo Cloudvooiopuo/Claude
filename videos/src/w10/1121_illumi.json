@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-21",
+  "form": "video",
+  "kind": "レジャー",
+  "accent": "#5E548E",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "イルミネーション",
+    "見に行くなら"
+  ],
+  "sub": "レジャー｜楽しむコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "点灯前に着く",
+      "note": "点く瞬間が見られる"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "平日か早い時間",
+      "note": "混雑を避けられる"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "防寒は足元から",
+      "note": "厚めの靴下とカイロ"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/sleep/city_1.jpg",
+    "items": {
+      "3": "photos/w8/1029_night_3.jpg",
+      "2": "photos/sleep/nightcafe_1.jpg",
+      "1": "photos/sleep/city_4.jpg"
+    },
+    "cta": "photos/w8/1029_night_hook.jpg"
+  },
+  "slot": 71,
+  "say": {
+    "hook": "イルミネーション、見に行くなら。",
+    "items": {
+      "3": "コツ1。点灯の前に着いておく。",
+      "2": "コツ2。平日か、早い時間に行く。",
+      "1": "コツ3。防寒は、足元から。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

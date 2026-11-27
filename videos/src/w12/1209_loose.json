@@ -1,0 +1,57 @@
+{
+  "date": "2026-12-09",
+  "form": "video",
+  "kind": "商品紹介",
+  "accent": "#B5838D",
+  "pr": true,
+  "photo_note": true,
+  "hook": [
+    "冬のメモ",
+    "書くのがおっくう"
+  ],
+  "sub": "商品紹介｜書く習慣を続けるコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "1日1行だけ",
+      "note": "長く書かなくていい"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "ルーズリーフで",
+      "note": "テーマごとに入れ替え"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "机の上に出しておく",
+      "note": "しまうと書かない"
+    }
+  ],
+  "cta": [
+    "使う物は",
+    "プロフィールのリンクから"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1104_pens_3.jpg",
+    "items": {
+      "3": "photos/w6/1108_heating_cta.jpg",
+      "2": "photos/w6/1104_pens_1.jpg",
+      "1": "photos/w6/1104_pens_cta.jpg"
+    },
+    "cta": "photos/office/notebook_latte_1.jpg"
+  },
+  "slot": 89,
+  "say": {
+    "hook": "冬のメモ、書くのがおっくう。",
+    "items": {
+      "3": "コツ1。1日1行だけ、書く。",
+      "2": "コツ2。ルーズリーフなら、あとで並べ替えられる。",
+      "1": "コツ3。机の上に、出しておく。"
+    },
+    "cta": "使う物は、プロフィールのリンクから。"
+  }
+}

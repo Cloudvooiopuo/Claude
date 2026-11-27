@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-25",
+  "form": "video",
+  "kind": "暮らし",
+  "accent": "#B5838D",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "暗い冬の朝",
+    "ラクに起きる"
+  ],
+  "sub": "暮らし｜朝のコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "暖房をタイマーで",
+      "note": "起きる30分前に"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "すぐ明かりをつける",
+      "note": "体が朝だと気づく"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "白湯を1杯",
+      "note": "体の中から温める"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1105_morning_hook.jpg",
+    "items": {
+      "3": "photos/w6/1105_morning_1.jpg",
+      "2": "photos/w6/1105_morning_2.jpg",
+      "1": "photos/w8/1022_dry_1.jpg"
+    },
+    "cta": "photos/w6/1105_morning_cta.jpg"
+  },
+  "slot": 75,
+  "say": {
+    "hook": "暗い冬の朝、ラクに起きる。",
+    "items": {
+      "3": "コツ1。暖房を、タイマーでつけておく。",
+      "2": "コツ2。起きたら、すぐ明かりをつける。",
+      "1": "コツ3。白湯を、1杯飲む。"
+    },
+    "cta": "保存して、あとで見返してね。"
+  }
+}

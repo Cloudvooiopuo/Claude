@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-03",
+  "form": "letter",
+  "kind": "レジャー",
+  "accent": "#B5838D",
+  "pr": false,
+  "photo_note": false,
+  "hook": [
+    "文化の日",
+    "美術館に",
+    "行くなら"
+  ],
+  "sub": "レジャー｜美術館のコツ3つ",
+  "items": [
+    {
+      "rank": 3,
+      "label": "コツ1",
+      "name": "開館すぐの時間に行く",
+      "note": "人が少なくてゆっくり見られる"
+    },
+    {
+      "rank": 2,
+      "label": "コツ2",
+      "name": "全部見ようとしない",
+      "note": "気になった3点をじっくり"
+    },
+    {
+      "rank": 1,
+      "label": "コツ3",
+      "name": "ポストカードを1枚だけ買う",
+      "note": "部屋に飾ると思い出になる"
+    }
+  ],
+  "cta": [
+    "保存して",
+    "後で見返してね"
+  ],
+  "foot": "",
+  "photos": {
+    "hook": "photos/w6/1103_museum_hook.jpg",
+    "items": {
+      "3": "photos/w6/1103_museum_1.jpg",
+      "2": "photos/w6/1103_museum_2.jpg",
+      "1": "photos/w6/1103_museum_3.jpg"
+    },
+    "cta": "photos/w6/1103_museum_cta.jpg"
+  }
+}
